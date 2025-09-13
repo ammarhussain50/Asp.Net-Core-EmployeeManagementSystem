@@ -1,0 +1,12 @@
+﻿# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# Build folders
+bin/
+obj/
+
+# Others
+node_modules/
+
