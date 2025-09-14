@@ -1,0 +1,108 @@
+<div class="p-4">
+  <div class="flex justify-between mb-4">
+    <h1 class="text-xl font-semibold">Departments</h1>
+
+    <button
+      (click)="openModal()"
+      class="bg-green-500 text-white px-3 py-1 rounded flex items-center gap-1"
+    >
+      <lucide-icon [img]="Plus" class="w-4 h-4"></lucide-icon>
+      Add
+    </button>
+  </div>
+
+  <!-- Loader -->
+  @if (isLoading) {
+    <div class="flex items-center justify-center py-10">
+      <lucide-icon [img]="LoaderCircle" class="w-10 h-10 text-blue-600 animate-spin"></lucide-icon>
+    </div>
+  }
+
+  <!-- Table -->
+  @if (!isLoading) {
+    <table class="w-full border">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="p-2 border">ID</th>
+          <th class="p-2 border">Name</th>
+          <th class="p-2 border">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of departments; track $index) {
+          <tr>
+            <td class="p-2 border">{{ $index + 1 }}</td>
+            <td class="p-2 border">{{ item.name }}</td>
+            <td class="p-2 border">
+              <button
+                (click)="editDepartment(item)"
+                class="bg-blue-500 text-white px-2 py-1 rounded flex items-center gap-1"
+              >
+                <lucide-icon [img]="Edit" class="w-4 h-4"></lucide-icon>
+                Edit
+              </button>
+
+              <button
+                (click)="deleteDepartment(item.id)"
+                class="bg-red-500 text-white px-2 py-1 rounded ml-2 flex items-center gap-1"
+              >
+                <lucide-icon [img]="Trash2" class="w-4 h-4"></lucide-icon>
+                Delete
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  <!-- Modal -->
+  @if (showModal) {
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div class="bg-white p-4 rounded w-96">
+        <h2 class="text-lg mb-3">
+          {{ editId === 0 ? 'Add Department' : 'Edit Department' }}
+        </h2>
+        <form (ngSubmit)="editId === 0 ? saveDepartment() : updateDepartment()">
+          <input
+            type="text"
+            [(ngModel)]="newDepartment"
+            name="name"
+            placeholder="Department Name"
+            class="border p-2 w-full mb-3"
+          />
+          <div class="text-right">
+            <button
+              type="button"
+              (click)="closeModal()"
+              class="bg-gray-300 px-3 py-1 rounded mr-2 flex items-center gap-1"
+            >
+              <lucide-icon [img]="X" class="w-4 h-4"></lucide-icon>
+              Cancel
+            </button>
+
+            @if (editId === 0) {
+              <button
+                type="submit"
+                class="bg-green-500 text-white px-3 py-1 rounded flex items-center gap-1"
+              >
+                <lucide-icon [img]="Plus" class="w-4 h-4"></lucide-icon>
+                Add
+              </button>
+            }
+
+            @if (editId !== 0) {
+              <button
+                type="submit"
+                class="bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"
+              >
+                <lucide-icon [img]="Edit" class="w-4 h-4"></lucide-icon>
+                Update
+              </button>
+            }
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

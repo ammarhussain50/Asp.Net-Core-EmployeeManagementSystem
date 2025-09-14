@@ -22,6 +22,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IRepository<Department>, Repository<Department>>();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular",
+        policy =>
+        {
+            policy.AllowAnyOrigin();
+               policy.AllowAnyMethod();
+            policy.AllowAnyHeader();
+        });
+});
+
 var app = builder.Build();
 
 
@@ -33,6 +45,10 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+
+// ?? Use CORS before MapControllers
+app.UseCors("AllowAngular");
 
 app.UseHttpsRedirection();
 
