@@ -1,4 +1,5 @@
 using EMS_Backend.Data;
+using EMS_Backend.Entity;
 using EMS_Backend.Interface;
 using EMS_Backend.Model;
 using EMS_Backend.Repository;
@@ -21,6 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 builder.Services.AddScoped<IRepository<Department>, Repository<Department>>();
+builder.Services.AddScoped<IRepository<Employee>, Repository<Employee>>();
 
 
 builder.Services.AddCors(options =>
