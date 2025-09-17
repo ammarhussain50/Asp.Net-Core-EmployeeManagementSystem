@@ -1,17 +1,15 @@
-import { IDepartment } from "./IDepartment";
 
 export interface IEmployee {
   id: number;
-  name: string;
-  email: string;
-  phone: string;
-  jobTitle: string;
-  gender: Gender;
-  departmentId: number;   // optional
-//   department?: IDepartment; // nested interface
-  joiningDate: string;     // API se aayega ISO string
-  lastWorkingDate: string;
-  dateOfBirth: string;     // DateOnly bhi API se string me aata hai
+    name: string;
+    email: string;
+    phone: string;
+    jobTitle: string;
+    gender: number;
+    departmentId: number;
+    dateOfBirth: string; // Use string or Date depending on your usage
+    joiningDate: string; // Use string or Date depending on your usage
+    lastWorkingDate: string; // Use string or Date depending on your usage
 }
 
 export enum Gender{

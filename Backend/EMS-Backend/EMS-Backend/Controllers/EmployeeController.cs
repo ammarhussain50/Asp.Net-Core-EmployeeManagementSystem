@@ -23,6 +23,18 @@ namespace EMS_Backend.Controllers
             return Ok(await employeerepository.GetAllAsync());
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get([FromRoute] int id)
+        {
+            var employee = await employeerepository.GetByIdAsync(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            return Ok(employee);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> AddEmployee([FromBody] Employee model)
         {
@@ -41,6 +53,7 @@ namespace EMS_Backend.Controllers
             employee.Name = model.Name;
             employee.Email = model.Email;
             employee.Phone = model.Phone;
+            employee.DepartmentId = model.DepartmentId;
             employee.LastWorkingDate = model.LastWorkingDate;
             employee.JobTitle = model.JobTitle;
 

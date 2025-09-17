@@ -16,7 +16,7 @@ namespace EMS_Backend.Entity
         public Department? Department { get; set; }
         public DateTime JoiningDate { get; set; }
         public DateTime LastWorkingDate { get; set; }
-        public DateOnly DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
     }
 
  }
