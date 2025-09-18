@@ -1,6 +1,7 @@
 ﻿using EMS_Backend.Data;
 using EMS_Backend.Entity;
 using EMS_Backend.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,12 +19,14 @@ namespace EMS_Backend.Controllers
         }
 
         [HttpGet]
+        [Authorize (Roles = "developer,Admin")]
         public async Task<IActionResult> Get()
         {
             return Ok(await employeerepository.GetAllAsync());
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             var employee = await employeerepository.GetByIdAsync(id);
@@ -36,6 +39,7 @@ namespace EMS_Backend.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "developer,Admin")]
         public async Task<IActionResult> AddEmployee([FromBody] Employee model)
         {
             // Ensure only DepartmentId is set, not Department navigation property
@@ -47,6 +51,7 @@ namespace EMS_Backend.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "developer,Admin")]
         public async Task<IActionResult> UpdateEmployee(int id, [FromBody] Employee model)
         {
             var employee = await employeerepository.GetByIdAsync(id);
@@ -63,6 +68,7 @@ namespace EMS_Backend.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "developer,Admin")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
             await employeerepository.DeleteAsync(id);
