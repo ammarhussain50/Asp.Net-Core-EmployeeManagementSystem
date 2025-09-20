@@ -14,11 +14,13 @@ namespace EMS_Backend.Entity
         [ForeignKey(nameof(Department))]
         public int? DepartmentId { get; set; }
         public Department? Department { get; set; }
-        public DateTime JoiningDate { get; set; }
-        public DateTime LastWorkingDate { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public int? UserId { get; set; }
-        public User User { get; set; }
+        public DateOnly JoiningDate { get; set; }
+        public DateOnly LastWorkingDate { get; set; }
+        public DateOnly DateOfBirth { get; set; }
+
+        // foreign key
+        public string? AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
     }
 
  }

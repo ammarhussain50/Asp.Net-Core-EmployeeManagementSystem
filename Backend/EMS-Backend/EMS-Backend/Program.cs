@@ -3,7 +3,9 @@ using EMS_Backend.Entity;
 using EMS_Backend.Interface;
 using EMS_Backend.Model;
 using EMS_Backend.Repository;
+using EMS_Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
@@ -20,30 +22,47 @@ builder.Services.AddOpenApi();
 
 
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 builder.Services.AddScoped<IRepository<Department>, Repository<Department>>();
 builder.Services.AddScoped<IRepository<Employee>, Repository<Employee>>();
-builder.Services.AddScoped<IRepository<User>, Repository<User>>();
+//builder.Services.AddScoped<IRepository<User>, Repository<User>>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 
-builder.Services.AddCors(options =>
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAngular",
+//        policy =>
+//        {
+//            policy.AllowAnyOrigin();
+//               policy.AllowAnyMethod();
+//            policy.AllowAnyHeader();
+//        });
+//});
+
+// Database
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Identity
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 {
-    options.AddPolicy("AllowAngular",
-        policy =>
-        {
-            policy.AllowAnyOrigin();
-               policy.AllowAnyMethod();
-            policy.AllowAnyHeader();
-        });
+    //this code change according to needs 
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 8;
+}).AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.User.RequireUniqueEmail = true;
 });
-
-// JWT Authentication
-//var jwtSettings = builder.Configuration.GetSection("Jwt");
-//var key = Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]);/
-
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -54,29 +73,40 @@ builder.Services.AddAuthentication(options =>
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:Audience"],
+        ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
     };
 });
 
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+// JWT Authentication
+//var jwtSettings = builder.Configuration.GetSection("Jwt");
+//var key = Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]);/
+
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//})
+//.AddJwtBearer(options =>
 //{
 //    options.TokenValidationParameters = new TokenValidationParameters
 //    {
-//        ValidateIssuer = false,
-//        //ValidIssuer = builder.Configuration["JWT:Issuer"],
-//        ValidateAudience = false,
-//        //ValidAudience = builder.Configuration["JWT:Audience"],
+//        ValidateIssuer = true,
+//        ValidateAudience = true,
+//        ValidateLifetime = true,
 //        ValidateIssuerSigningKey = true,
+//        ValidIssuer = builder.Configuration["JWT:Issuer"],
+//        ValidAudience = builder.Configuration["JWT:Audience"],
 //        IssuerSigningKey = new SymmetricSecurityKey(
-//            Encoding.UTF8.GetBytes("4d66225e1be29727a6da08bb9c8f250f8defed81a2c943de828160963f600100"))
+//            Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
 //    };
 //});
+
+
 
 builder.Services.AddAuthorization();
 
@@ -98,6 +128,13 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowAngular");
 
 app.UseHttpsRedirection();
+
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true)
+
+);
 app.UseAuthentication();
 
 app.UseAuthorization();
