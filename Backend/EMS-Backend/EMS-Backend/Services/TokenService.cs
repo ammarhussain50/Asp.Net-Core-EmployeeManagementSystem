@@ -23,9 +23,10 @@ namespace EMS_Backend.Services
         {
             var claims = new List<Claim>
             {
-               new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty)
-,
-                //new Claim(ClaimTypes.Role, user.Role),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
+
+                // 👇 JobTitle ko role ki tarah add kiya
+                new Claim(ClaimTypes.Role, user.JobTitle ?? string.Empty)
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);

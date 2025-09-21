@@ -1,9 +1,11 @@
 ﻿namespace EMS_Backend.DTO
 {
-    public class AuthTokenDto
+    public class LoginTokenDto
     {
+        public string Id { get; set; }
         public string Email { get; set; }
+
         public string Token { get; set; }
-        public string JobTitle { get; set; } // 👈 new field
+        public string? JobTitle { get; internal set; }
     }
 }

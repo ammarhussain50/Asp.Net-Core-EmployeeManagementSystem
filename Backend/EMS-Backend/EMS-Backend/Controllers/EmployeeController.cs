@@ -19,6 +19,7 @@ namespace EMS_Backend.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Developer")]
         public async Task<IActionResult> Get()
         {
             return Ok(await employeerepository.GetAllAsync());

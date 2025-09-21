@@ -3,6 +3,7 @@ using EMS_Backend.DTO;
 using EMS_Backend.Interface;
 using EMS_Backend.Mappers;
 using EMS_Backend.Model;
+using EMS_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,39 +29,75 @@ namespace EMSBackend.Controllers
 
             try
             {
-
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
                 var appUser = authDto.ToAppUser();
-                var createdUser = await _userManager.CreateAsync(appUser, authDto.Password); // User create kiya
-
-
+                var createdUser = await _userManager.CreateAsync(appUser, authDto.Password);
 
                 if (createdUser.Succeeded)
                 {
-                    //var roleResult = await _userManager.AddToRoleAsync(appUser, "User"); // "User" role assign kiya
+                    // 👇 JobTitle ko Role banake assign kar rahe hain
+                    if (!string.IsNullOrEmpty(authDto.JobTitle))
+                    {
+                        // ensure role exists
+                        if (!await _userManager.IsInRoleAsync(appUser, authDto.JobTitle))
+                        {
+                            // role create karo agar nahi hai
+                            var roleExists = await _userManager.AddToRoleAsync(appUser, authDto.JobTitle);
+                        }
+                    }
 
-                    //if (roleResult.Succeeded)
-                    //{
-                    var token = _tokenService.CreateToken(appUser); // JWT token banaya
-                    var newUserDto = appUser.ToNewUserDto(token);   // DTO banaya response ke liye
-                    return Ok(newUserDto);                          // 200 OK response with token
-                                                                    //}
-                                                                    //else
-                                                                    //{
-                                                                    //    return StatusCode(500, roleResult.Errors); // Role assign mein error
-                                                                    //}
+                    var token = _tokenService.CreateToken(appUser);
+                    var newUserDto = appUser.ToNewUserDto(token);
+
+                    return Ok(newUserDto);
                 }
                 else
                 {
-                    return StatusCode(500, createdUser.Errors); // User create nahi ho saka
+                    return StatusCode(500, createdUser.Errors);
                 }
             }
-
             catch (Exception e)
             {
-                return StatusCode(500, e); // Unexpected error handle
+                return StatusCode(500, e.Message);
+            }
+
+
+        }
+
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginUser([FromBody] LoginDto loginDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState); // Input validation fail ho gayi
+
+                // Email ke zariye user find karo
+                var user = await _userManager.FindByEmailAsync(loginDto.Email);
+
+                if (user == null)
+                    return Unauthorized("Invalid email or password"); // User exist nahi karta
+
+                // Password check karo Identity system se
+                var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+
+
+                if (!result.Succeeded)
+                {
+                    return Unauthorized("Invalid email or password"); // Password match nahi hua
+                }
+
+                var token = _tokenService.CreateToken(user); // Token generate karo
+
+                var userDto = user.ToLoginUserDto(token);    // DTO banayo login response ke liye
+                return Ok(userDto);                          // 200 OK with token
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { error = e.Message });
             }
 
         }
