@@ -13,7 +13,7 @@ namespace EMS_Backend.Mappers
                 Email = dto.Email,
                 // dont use Password here, it will be set by UserManager in controller because it hased and salted automatically
                 UserName = dto.Email, // 👈 yahan UserName me email dal diya
-                JobTitle = dto.JobTitle // 👈 naya field map
+                //JobTitle = dto.JobTitle // 👈 naya field map
             };
         }
 
@@ -25,7 +25,7 @@ namespace EMS_Backend.Mappers
 
                 Email = user.Email,
                 Token = token,
-                JobTitle = user.JobTitle // 👈 response me bhi bhej do
+                //JobTitle = user.JobTitle // 👈 response me bhi bhej do
             };
         }
 
@@ -36,7 +36,7 @@ namespace EMS_Backend.Mappers
                 Id = user.Id,
                 Email = user.Email,
                 Token = token,
-                JobTitle = user.JobTitle // 👈 login response me bhi
+                //JobTitle = user.JobTitle // 👈 login response me bhi
             };
         }
 

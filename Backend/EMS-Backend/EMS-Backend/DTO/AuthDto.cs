@@ -10,8 +10,8 @@ namespace EMS_Backend.DTO
         [Required]
         public string Password { get; set; }
 
-        [Required]
-        public string JobTitle { get; set; }  // 👈 naya field
+        //[Required]
+        //public string JobTitle { get; set; }  // 👈 naya field
     }
 
    

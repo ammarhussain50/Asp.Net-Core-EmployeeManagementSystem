@@ -3,6 +3,7 @@ using EMS_Backend.Entity;
 using EMS_Backend.Interface;
 using EMS_Backend.Model;
 using EMS_Backend.Repository;
+using EMS_Backend.Seed;
 using EMS_Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -111,6 +112,12 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    await RoleSeeder.SeedRolesAsync(roleManager);
+}
 
 
 

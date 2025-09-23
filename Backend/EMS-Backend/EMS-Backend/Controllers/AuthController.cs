@@ -37,18 +37,19 @@ namespace EMSBackend.Controllers
 
                 if (createdUser.Succeeded)
                 {
-                    // 👇 JobTitle ko Role banake assign kar rahe hain
-                    if (!string.IsNullOrEmpty(authDto.JobTitle))
-                    {
-                        // ensure role exists
-                        if (!await _userManager.IsInRoleAsync(appUser, authDto.JobTitle))
-                        {
-                            // role create karo agar nahi hai
-                            var roleExists = await _userManager.AddToRoleAsync(appUser, authDto.JobTitle);
-                        }
-                    }
+                    //// 👇 JobTitle ko Role banake assign kar rahe hain
+                    //if (!string.IsNullOrEmpty(authDto.JobTitle))
+                    //{
+                    //    // ensure role exists
+                    //    if (!await _userManager.IsInRoleAsync(appUser, authDto.JobTitle))
+                    //    {
+                    //        // role create karo agar nahi hai
+                    //        var roleExists = await _userManager.AddToRoleAsync(appUser, authDto.JobTitle);
+                    //    }
+                    //}
+                    await _userManager.AddToRoleAsync(appUser, "Admin"); // "User" role assign kiya
 
-                    var token = _tokenService.CreateToken(appUser);
+                    var token = await _tokenService.CreateTokenAsync(appUser);
                     var newUserDto = appUser.ToNewUserDto(token);
 
                     return Ok(newUserDto);
@@ -90,7 +91,7 @@ namespace EMSBackend.Controllers
                     return Unauthorized("Invalid email or password"); // Password match nahi hua
                 }
 
-                var token = _tokenService.CreateToken(user); // Token generate karo
+                var token = await _tokenService.CreateTokenAsync(user); // Token generate karo
 
                 var userDto = user.ToLoginUserDto(token);    // DTO banayo login response ke liye
                 return Ok(userDto);                          // 200 OK with token

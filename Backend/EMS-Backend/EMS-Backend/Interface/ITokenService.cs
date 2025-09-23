@@ -4,6 +4,6 @@ namespace EMS_Backend.Interface
 {
     public interface ITokenService
     {
-        string CreateToken(AppUser user);
+       Task <string> CreateTokenAsync(AppUser user);
     }
 }
