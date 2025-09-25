@@ -1,26 +1,59 @@
 <header>
-  <mat-toolbar class="bg-blue-400!">
-    <button (click)="drawer.toggle()" matIconButton class="example-icon text-white!" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
+  <mat-toolbar class="bg-blue-400! flex justify-between">
+    <!-- Menu button sirf jab logged in ho -->
+    @if (authservice.IsLoggedIn()) {
+      <button
+        (click)="drawer.toggle()"
+        matIconButton
+        class="example-icon text-white!"
+        aria-label="menu"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+    }
+
     <span class="text-white!">Employee Management System</span>
     <span class="example-spacer"></span>
 
+    <!-- Logout button sirf jab logged in ho -->
+    @if (authservice.IsLoggedIn()) {
+      <button
+        (click)="logout()"
+        class="bg-red-500 hover:bg-red-600 text-white font-medium px-3 py-2 rounded-lg shadow-md transition"
+      >
+        Logout
+      </button>
+    }
   </mat-toolbar>
 </header>
-<mat-drawer-container class="example-container">
-  <mat-drawer #drawer class="w-[300-px] bg-white shadow-lg" mode="side" opened>
-    <div class="flex flex-col p-4 gap-4 items-center">
-      <a routerLink="/">Dashboard</a>
-      <a routerLink="/departments">Departments</a>
-      <a routerLink="/employee">Employee</a>
-    </div>
-  </mat-drawer>
-  <mat-drawer-content >
-    <main class="min-h-screen bg-gray-100">
-      <router-outlet></router-outlet>
-    </main>
-  </mat-drawer-content>
-</mat-drawer-container>
+
+<!-- 👇 Sidebar sirf jab logged in ho -->
+@if (authservice.IsLoggedIn()) {
+  <mat-drawer-container class="example-container">
+    <mat-drawer
+      #drawer
+      class="w-[300px] bg-white shadow-lg"
+      mode="side"
+      opened
+    >
+      <div class="flex flex-col p-4 gap-4 items-center">
+        <a routerLink="/">Dashboard</a>
+        <a routerLink="/departments">Departments</a>
+        <a routerLink="/employee">Employee</a>
+      </div>
+    </mat-drawer>
+
+    <mat-drawer-content>
+      <main class="min-h-screen bg-gray-100">
+        <router-outlet></router-outlet>
+      </main>
+    </mat-drawer-content>
+  </mat-drawer-container>
+} @else {
+  <!-- Jab login nahi hai tab simple content -->
+  <main class="min-h-screen bg-gray-100">
+    <router-outlet></router-outlet>
+  </main>
+}
 
 <footer></footer>
