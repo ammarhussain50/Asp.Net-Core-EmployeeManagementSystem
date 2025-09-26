@@ -32,13 +32,18 @@ readonly Pencil = Pencil;
   editId: number = 0;
   DepartmentName: string = '';
   readonly X = X;
+  // showAddModal: boolean | undefined;
 
     openModal() {
     this.isModalOpen = true;
+    // this.showAddModal = true;
+    localStorage.setItem("modalOpen", "true");
   }
 
   closeModal() {
     this.isModalOpen = false;
+    // this.showAddModal = false;
+    localStorage.setItem("modalOpen", "false");
     this.employeeForm.reset({
        id: 0,   
   

@@ -70,8 +70,7 @@
               "RelativeToolTip": "EMS-Backend\\DTO\\AuthTokenDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T10:55:58.218Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-18T10:55:58.218Z"
             },
             {
               "$type": "Document",
@@ -83,8 +82,7 @@
               "RelativeToolTip": "EMS-Backend\\Controllers\\AuthController.cs",
               "ViewState": "AgIAACgAAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-17T21:50:32.581Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T21:50:32.581Z"
             },
             {
               "$type": "Document",
@@ -96,8 +94,7 @@
               "RelativeToolTip": "EMS-Backend\\DTO\\LoginDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T21:02:20.878Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-23T21:02:20.878Z"
             },
             {
               "$type": "Document",
@@ -109,8 +106,7 @@
               "RelativeToolTip": "EMS-Backend\\DTO\\LoginTokenDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T10:05:56.634Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-23T10:05:56.634Z"
             },
             {
               "$type": "Document",
@@ -120,7 +116,7 @@
               "RelativeDocumentMoniker": "EMS-Backend\\Mappers\\AuthMappers.cs",
               "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Mappers\\AuthMappers.cs",
               "RelativeToolTip": "EMS-Backend\\Mappers\\AuthMappers.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-20T11:18:15.194Z",
               "EditorCaption": ""
@@ -135,8 +131,7 @@
               "RelativeToolTip": "EMS-Backend\\Seed\\RoleSeeder.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAkwA4AAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T10:12:41.524Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-23T10:12:41.524Z"
             },
             {
               "$type": "Document",
@@ -148,8 +143,7 @@
               "RelativeToolTip": "EMS-Backend\\Services\\TokenService.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAAACYAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-20T10:57:18.775Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-20T10:57:18.775Z"
             },
             {
               "$type": "Document",
@@ -161,8 +155,7 @@
               "RelativeToolTip": "EMS-Backend\\Controllers\\DepartmentController.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAACgAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-25T20:01:47.79Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-25T20:01:47.79Z"
             },
             {
               "$type": "Document",
@@ -198,8 +191,7 @@
               "RelativeToolTip": "EMS-Backend\\Controllers\\EmployeeController.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAAABwAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T10:25:23.796Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-23T10:25:23.796Z"
             },
             {
               "$type": "Document",
