@@ -47,10 +47,12 @@ namespace EMSBackend.Controllers
                     //        var roleExists = await _userManager.AddToRoleAsync(appUser, authDto.JobTitle);
                     //    }
                     //}
-                    await _userManager.AddToRoleAsync(appUser, "Admin"); // "User" role assign kiya
+                    await _userManager.AddToRoleAsync(appUser, "Employee"); // "User" role assign kiya
 
                     var token = await _tokenService.CreateTokenAsync(appUser);
-                    var newUserDto = appUser.ToNewUserDto(token);
+                    var roles = await _userManager.GetRolesAsync(appUser); // yeh current user k role nikale ga identity sy array deta hy to hmny first aur default lgayab
+                    var role = roles.FirstOrDefault();     // ek hi role milega (Admin ya Employee)
+                    var newUserDto = appUser.ToNewUserDto(token,role);
 
                     return Ok(newUserDto);
                 }
@@ -69,7 +71,7 @@ namespace EMSBackend.Controllers
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginUser([FromBody] LoginDto loginDto)
+        public async Task<IActionResult> LoginUser([FromBody] AuthDto loginDto)
         {
             try
             {
@@ -93,7 +95,10 @@ namespace EMSBackend.Controllers
 
                 var token = await _tokenService.CreateTokenAsync(user); // Token generate karo
 
-                var userDto = user.ToLoginUserDto(token);    // DTO banayo login response ke liye
+                var roles = await _userManager.GetRolesAsync(user); // yeh current user k role nikale ga identity sy array deta hy to hmny first aur default lgayab
+                var role = roles.FirstOrDefault();     // ek hi role mileg
+
+                var userDto = user.ToLoginUserDto(token,role);    // DTO banayo login response ke liye
                 return Ok(userDto);                          // 200 OK with token
             }
             catch (Exception e)

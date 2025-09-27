@@ -1,5 +1,6 @@
 ﻿using EMS_Backend.DTO;
 using EMS_Backend.Model;
+using System.Data;
 
 namespace EMS_Backend.Mappers
 {
@@ -18,24 +19,26 @@ namespace EMS_Backend.Mappers
         }
 
 
-        public static AuthTokenDto ToNewUserDto(this AppUser user, string token)
+        public static AuthTokenDto ToNewUserDto(this AppUser user, string token,string role)
         {
             return new AuthTokenDto
             {
 
                 Email = user.Email,
                 Token = token,
+                Role = role
                 //JobTitle = user.JobTitle // 👈 response me bhi bhej do
             };
         }
 
-        public static LoginTokenDto ToLoginUserDto(this AppUser user, string token)
+        public static LoginTokenDto ToLoginUserDto(this AppUser user, string token,string role)
         {
             return new LoginTokenDto
             {
                 Id = user.Id,
                 Email = user.Email,
                 Token = token,
+                Role = role
                 //JobTitle = user.JobTitle // 👈 login response me bhi
             };
         }

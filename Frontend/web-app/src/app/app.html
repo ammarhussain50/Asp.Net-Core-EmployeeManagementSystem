@@ -1,22 +1,20 @@
 <header>
-  <mat-toolbar class="bg-blue-400! flex justify-between">
-    <!-- Menu button sirf jab logged in ho -->
-    @if (authservice.IsLoggedIn()) {
+  <div class="bg-blue-400 flex justify-between items-center p-3">
+   
+    @if (authservice.isLoggedIn) {
       <button
-        (click)="drawer.toggle()"
-        matIconButton
-        class="example-icon text-white!"
+        (click)="toggleSidebar()"
+        class="text-white"
         aria-label="menu"
       >
-        <mat-icon>menu</mat-icon>
+        ☰
       </button>
     }
 
-    <span class="text-white!">Employee Management System</span>
-    <span class="example-spacer"></span>
+    <span class="text-white">Employee Management System</span>
+    <span></span>
 
-    <!-- Logout button sirf jab logged in ho -->
-    @if (authservice.IsLoggedIn()) {
+    @if (authservice.isLoggedIn) {
       <button
         (click)="logout()"
         class="bg-red-500 hover:bg-red-600 text-white font-medium px-3 py-2 rounded-lg shadow-md transition"
@@ -24,39 +22,58 @@
         Logout
       </button>
     }
-  </mat-toolbar>
+  </div>
 </header>
 
-<!-- 👇 Sidebar sirf jab logged in ho -->
-@if (authservice.IsLoggedIn()) {
-  <mat-drawer-container class="example-container">
-    @if (sidebarVisible) {
-      
-      <mat-drawer
-        #drawer
-        class="w-[300px] bg-white shadow-lg"
-        mode="side"
-        opened
-      >
-        <div class="flex flex-col p-4 gap-4 items-center">
-          <a routerLink="/">Dashboard</a>
-          <a routerLink="/departments">Departments</a>
-          <a routerLink="/employee">Employee</a>
-        </div>
-      </mat-drawer>
+
+@if (authservice.isLoggedIn) {
+  <div class="flex">
+    @if (sidebarVisible && isSidebarOpen) {
+      <div class="w-[250px] bg-white shadow-lg min-h-screen p-5 space-y-2">
+        <nav>
+          @if (authservice.isEmployee) {
+            <a routerLink="/employee-dashboard" routerLinkActive="bg-gray-100 text-gray-900"
+               class="block text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg px-3 py-2">
+              employee dashboard
+            </a>
+          }
+          @else {
+            <a routerLink="/" routerLinkActive="bg-gray-100 text-gray-900"
+               class="block text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg px-3 py-2">
+              Admin Dashboard
+            </a>
+            <a routerLink="/departments" routerLinkActive="bg-gray-100 text-gray-900"
+               class="block text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg px-3 py-2">
+              Departments
+            </a>
+            <a routerLink="/employee" routerLinkActive="bg-gray-100 text-gray-900"
+               class="block text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg px-3 py-2">
+              Employees
+            </a>
+          }
+        </nav>
+      </div>
     }
 
-    <mat-drawer-content>
-      <main class="min-h-screen bg-gray-100">
-        <router-outlet></router-outlet>
-      </main>
-    </mat-drawer-content>
-  </mat-drawer-container>
-} @else {
-  <!-- Jab login nahi hai tab simple content -->
+    <div class="flex-1 min-h-screen bg-gray-100">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+} 
+@else {
+  
   <main class="min-h-screen bg-gray-100">
     <router-outlet></router-outlet>
   </main>
 }
 
-<footer></footer>
+<footer class="bg-gray-100 text-center py-3 text-gray-500 text-sm border-t">
+  © 2025 Employee Management System
+</footer>
+
+
+
+
+
+
+

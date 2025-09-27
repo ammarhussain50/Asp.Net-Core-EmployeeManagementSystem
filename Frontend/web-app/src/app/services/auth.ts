@@ -12,12 +12,12 @@ export class Auth {
   router = inject(Router);
 
   // 👇 reactive signal state
-  IsLoggedIn = signal<boolean>(false);
+  // IsLoggedIn = signal<boolean>(false);
 
   constructor() {
     // app load hote hi check karo user logged in hai ya nahi
     const token = localStorage.getItem('token');
-    this.IsLoggedIn.set(!!token);
+    // this.IsLoggedIn.set(!!token);
   }
 
   login(Email: string, Password: string) {
@@ -27,13 +27,24 @@ export class Auth {
   SaveToken(token: LoginTokenDto) {
     localStorage.setItem('auth', JSON.stringify(token));
     localStorage.setItem('token', token.token); // 👈 dhyaan: backend "Token" return karta hai (capital T)
-    this.IsLoggedIn.set(true); // 👈 state update
+    // this.IsLoggedIn.set(true); // 👈 state update
   }
+
+  get isLoggedIn() {
+  return localStorage.getItem('token') ? true : false;
+}
+get isEmployee() {
+  return JSON.parse(localStorage.getItem('auth')!)?.role === 'Employee';
+}
 
   logout() {
     localStorage.removeItem('auth');
     localStorage.removeItem('token');
-    this.IsLoggedIn.set(false); // 👈 state update
+    // this.IsLoggedIn.set(false); // 👈 state update
     this.router.navigateByUrl('/login');
   }
 }
+
+
+
+

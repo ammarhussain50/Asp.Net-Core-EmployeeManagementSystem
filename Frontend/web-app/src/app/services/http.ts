@@ -32,9 +32,9 @@ updateEmployee(id: number, employee: IEmployee) {
     return this.http.put(`${environment.apiUrl}/api/Employee/${id}`, employee);
   }
 deleteEmployee(id: number) {
-  return this.http.delete(`${environment.apiUrl} + /api/Employee/${id}`);  
+  return this.http.delete(`${environment.apiUrl}/api/Employee/${id}`);  
 }
 getEmployeeById(id:number){
-  return this.http.get(`${environment.apiUrl} + /api/Employee/${id}`)
+  return this.http.get(`${environment.apiUrl}/api/Employee/${id}`);
 }
 }

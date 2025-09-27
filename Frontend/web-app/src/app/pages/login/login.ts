@@ -27,8 +27,8 @@ export class Login {
       Password: ['', [Validators.required, Validators.minLength(6)]] // required + min 6 chars
     });
 
-    if(this.authservice.IsLoggedIn()){
-      this.router.navigateByUrl("/")
+    if (this.authservice.isLoggedIn) {
+      this.router.navigate(['/']);
     }
 
   }
@@ -37,7 +37,12 @@ export class Login {
     this.authservice.login(this.loginForm.value.Email,this.loginForm.value.Password).subscribe((results)=>{
       console.log(results);
       this.authservice.SaveToken(results)
-      this.router.navigateByUrl("/")
+       alert('Login successful!');
+      if(results.role === 'Admin'){
+          this.router.navigate(['/']);
+        }else{
+          this.router.navigate(['/employee-dashboard']);
+        }
       
     })
   }
@@ -45,3 +50,9 @@ export class Login {
 
 
 }
+
+
+
+
+
+
