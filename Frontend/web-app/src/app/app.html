@@ -4,24 +4,39 @@
     @if (authservice.isLoggedIn) {
       <button
         (click)="toggleSidebar()"
-        class="text-white"
+        class="text-white text-2xl ml-6"
         aria-label="menu"
       >
         ☰
       </button>
     }
 
-    <span class="text-white">Employee Management System</span>
+    <span class="text-white font-bold text-2xl">Employee Management System</span>
     <span></span>
 
     @if (authservice.isLoggedIn) {
+
+       <!-- Show logged-in user email -->
+    <span class="text-xl font-medium text-gray-700">
+    {{ authservice.AuthDetail?.email }}
+    </span>
+
       <button
         (click)="logout()"
         class="bg-red-500 hover:bg-red-600 text-white font-medium px-3 py-2 rounded-lg shadow-md transition"
       >
         Logout
       </button>
-    }
+    }@else {
+    <!-- Login button -->
+    <a routerLink="/login"
+       class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white 
+              bg-gray-800 rounded-lg shadow 
+              hover:bg-gray-700 transition-colors duration-300">
+      <!-- <lucide-icon [img]="LogIn" class="w-5 h-5"></lucide-icon> -->
+      <span>Login</span>
+    </a>
+  }
   </div>
 </header>
 
@@ -60,6 +75,8 @@
     </div>
   </div>
 } 
+
+
 @else {
   
   <main class="min-h-screen bg-gray-100">

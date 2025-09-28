@@ -37,6 +37,12 @@ get isEmployee() {
   return JSON.parse(localStorage.getItem('auth')!)?.role === 'Employee';
 }
 
+get AuthDetail(): LoginTokenDto | null {
+  if (!this.isLoggedIn) return null;
+  let token: LoginTokenDto = JSON.parse(localStorage.getItem('auth')!);
+  return token;
+}
+
   logout() {
     localStorage.removeItem('auth');
     localStorage.removeItem('token');

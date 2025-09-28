@@ -7,6 +7,14 @@
       "RelativeMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|solutionrelative:ems-backend\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|d:\\c-sharp folder\\employee-management-system\\backend\\ems-backend\\ems-backend\\dto\\logintokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|solutionrelative:ems-backend\\dto\\logintokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|d:\\c-sharp folder\\employee-management-system\\backend\\ems-backend\\ems-backend\\dto\\authtokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|solutionrelative:ems-backend\\dto\\authtokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|d:\\c-sharp folder\\employee-management-system\\backend\\ems-backend\\ems-backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|solutionrelative:ems-backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,14 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|d:\\c-sharp folder\\employee-management-system\\backend\\ems-backend\\ems-backend\\controllers\\departmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|solutionrelative:ems-backend\\controllers\\departmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|d:\\c-sharp folder\\employee-management-system\\backend\\ems-backend\\ems-backend\\dto\\logintokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|solutionrelative:ems-backend\\dto\\logintokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|d:\\c-sharp folder\\employee-management-system\\backend\\ems-backend\\ems-backend\\dto\\authtokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|solutionrelative:ems-backend\\dto\\authtokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|d:\\c-sharp folder\\employee-management-system\\backend\\ems-backend\\ems-backend\\seed\\roleseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -54,47 +54,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AuthMappers.cs",
-              "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Mappers\\AuthMappers.cs",
-              "RelativeDocumentMoniker": "EMS-Backend\\Mappers\\AuthMappers.cs",
-              "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Mappers\\AuthMappers.cs",
-              "RelativeToolTip": "EMS-Backend\\Mappers\\AuthMappers.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAAACYAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-20T11:18:15.194Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "RoleSeeder.cs",
-              "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Seed\\RoleSeeder.cs",
-              "RelativeDocumentMoniker": "EMS-Backend\\Seed\\RoleSeeder.cs",
-              "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Seed\\RoleSeeder.cs",
-              "RelativeToolTip": "EMS-Backend\\Seed\\RoleSeeder.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAkwA4AAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T10:12:41.524Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "DepartmentController.cs",
-              "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\DepartmentController.cs",
-              "RelativeDocumentMoniker": "EMS-Backend\\Controllers\\DepartmentController.cs",
-              "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\DepartmentController.cs",
-              "RelativeToolTip": "EMS-Backend\\Controllers\\DepartmentController.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACgAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-25T20:01:47.79Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Program.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Program.cs",
@@ -136,39 +100,27 @@
               "RelativeDocumentMoniker": "EMS-Backend\\Controllers\\EmployeeController.cs",
               "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\EmployeeController.cs",
               "RelativeToolTip": "EMS-Backend\\Controllers\\EmployeeController.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAiwEMAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAD8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-23T10:25:23.796Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LoginTokenDto.cs",
-              "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\DTO\\LoginTokenDto.cs",
-              "RelativeDocumentMoniker": "EMS-Backend\\DTO\\LoginTokenDto.cs",
-              "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\DTO\\LoginTokenDto.cs",
-              "RelativeToolTip": "EMS-Backend\\DTO\\LoginTokenDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T10:05:56.634Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Controllers\\AuthController.cs",
               "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\AuthController.cs",
               "RelativeToolTip": "EMS-Backend\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAAAGIAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-17T21:50:32.581Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "AuthTokenDto.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\DTO\\AuthTokenDto.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\DTO\\AuthTokenDto.cs",
@@ -176,7 +128,57 @@
               "RelativeToolTip": "EMS-Backend\\DTO\\AuthTokenDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T10:55:58.218Z"
+              "WhenOpened": "2025-09-18T10:55:58.218Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LoginTokenDto.cs",
+              "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\DTO\\LoginTokenDto.cs",
+              "RelativeDocumentMoniker": "EMS-Backend\\DTO\\LoginTokenDto.cs",
+              "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\DTO\\LoginTokenDto.cs",
+              "RelativeToolTip": "EMS-Backend\\DTO\\LoginTokenDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T10:05:56.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DepartmentController.cs",
+              "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\DepartmentController.cs",
+              "RelativeDocumentMoniker": "EMS-Backend\\Controllers\\DepartmentController.cs",
+              "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\DepartmentController.cs",
+              "RelativeToolTip": "EMS-Backend\\Controllers\\DepartmentController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACgAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T20:01:47.79Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RoleSeeder.cs",
+              "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Seed\\RoleSeeder.cs",
+              "RelativeDocumentMoniker": "EMS-Backend\\Seed\\RoleSeeder.cs",
+              "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Seed\\RoleSeeder.cs",
+              "RelativeToolTip": "EMS-Backend\\Seed\\RoleSeeder.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAkwA4AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T10:12:41.524Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AuthMappers.cs",
+              "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Mappers\\AuthMappers.cs",
+              "RelativeDocumentMoniker": "EMS-Backend\\Mappers\\AuthMappers.cs",
+              "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Mappers\\AuthMappers.cs",
+              "RelativeToolTip": "EMS-Backend\\Mappers\\AuthMappers.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAACYAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T11:18:15.194Z"
             },
             {
               "$type": "Document",
