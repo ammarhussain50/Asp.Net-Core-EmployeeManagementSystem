@@ -17,7 +17,7 @@
     @if (authservice.isLoggedIn) {
 
        <!-- Show logged-in user email -->
-    <span class="text-xl font-medium text-gray-700">
+    <span routerLink="/Profile" class="text-xl font-medium text-gray-700">
     {{ authservice.AuthDetail?.email }}
     </span>
 

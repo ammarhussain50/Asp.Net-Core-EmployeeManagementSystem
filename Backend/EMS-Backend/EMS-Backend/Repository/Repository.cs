@@ -2,6 +2,7 @@
 using EMS_Backend.Interface;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 
 namespace EMS_Backend.Repository
@@ -46,6 +47,11 @@ namespace EMS_Backend.Repository
         public void Update(T entity)
         {
            dbSet.Update(entity);
+        }
+
+        public async Task<T?> FindAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await dbSet.FirstOrDefaultAsync(predicate);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace EMS_Backend.Interface
+﻿using System.Linq.Expressions;
+
+namespace EMS_Backend.Interface
 {
     public interface  IRepository<T> where T : class
     {
@@ -8,5 +10,6 @@
         void Update(T entity);
         Task DeleteAsync(int id);
         Task<int> SaveChangesAsync();
+        Task<T?> FindAsync(Expression<Func<T, bool>> predicate);
     }
 }
