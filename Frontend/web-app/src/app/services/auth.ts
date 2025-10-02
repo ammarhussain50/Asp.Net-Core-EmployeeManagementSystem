@@ -43,9 +43,9 @@ get AuthDetail(): LoginTokenDto | null {
   return token;
 }
 
-getProfile(){
-  return this.http.get(environment.apiUrl + '/api/Profile/Profile');
-}
+// getProfile(){
+//   return this.http.get(environment.apiUrl + '/api/Profile/Profile');
+// }
 
   logout() {
     localStorage.removeItem('auth');

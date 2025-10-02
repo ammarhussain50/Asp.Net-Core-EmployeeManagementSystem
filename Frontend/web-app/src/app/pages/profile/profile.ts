@@ -1,71 +1,101 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Auth } from '../../services/auth';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Eye, EyeClosed, LoaderCircle, LucideAngularModule } from 'lucide-angular';
+import { Router } from '@angular/router';
+import { HttpService } from '../../services/http';
+import { IProfile, IProfileResponse } from '../../types/IProfile';
 
 @Component({
   selector: 'app-profile',
-  imports: [ReactiveFormsModule,],
+  imports: [LucideAngularModule, ReactiveFormsModule],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
-export class Profile {
-  authService = inject(Auth);
+export class Profile implements OnInit {
   fb = inject(FormBuilder);
+  httpService = inject(HttpService);
+  authService = inject(Auth);
+  router = inject(Router);
 
   profileForm!: FormGroup;
-  profileImage: string | null = null;
+  loading = false;
+  showOldPassword = false;
+  showNewPassword = false;
 
-  ngOnInit() {
-    // form initialization
+  readonly LoaderCircle = LoaderCircle;
+  readonly eye = Eye;
+  readonly eyeClosed = EyeClosed;
+
+  ngOnInit(): void {
+    this.initForm();
+    this.getProfile();
+  }
+
+  initForm() {
     this.profileForm = this.fb.group({
-      FullName: ['', Validators.required],
-      Email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
-      PhoneNumber: ['']
-    });
-
-    // get profile data from API
-    this.authService.getProfile().subscribe((result: any) => {
-      console.log(result);
-
-      // agar API image return kare to set karna
-      this.profileImage = result.profileImage;
-
-      // form me values patch karna
-      this.profileForm.patchValue({
-        FullName: result.fullName,
-        Email: result.email,
-        PhoneNumber: result.phoneNumber
-      });
+      userId: [this.authService.AuthDetail?.id || ''],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)]],
+      profileImage: [''],
+      oldPassword: [''],
+      newPassword: ['']
     });
   }
 
-  // File select hone pe image ko preview ke liye set karna
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.profileImage = e.target.result; // base64 preview
-      };
-      reader.readAsDataURL(file);
-    }
+  toggleOldPassword() {
+    this.showOldPassword = !this.showOldPassword;
   }
 
-  // save/update profile
+  toggleNewPassword() {
+    this.showNewPassword = !this.showNewPassword;
+  }
+
+  getProfile() {
+    const userId = this.authService.AuthDetail?.id || '';
+    this.httpService.getProfile(userId).subscribe({
+      next: (res: IProfileResponse) => {
+        this.profileForm.patchValue({
+          name: res.name,
+          phone: res.phone,
+          profileImage: res.profileImage || ''
+        });
+      },
+      error: () => {
+        alert('Failed to load profile. Please try again.');
+      }
+    });
+  }
+
   updateProfile() {
-    if (this.profileForm.valid) {
-      const updatedData = this.profileForm.getRawValue(); // email disabled h isliye getRawValue use
-      console.log('Updated Data:', updatedData);
+    this.loading = true;
+    const formValue = this.profileForm.value;
 
-      // this.authService.updateProfile(updatedData).subscribe({
-      //   next: (res) => {
-      //     console.log('Profile updated successfully', res);
-      //     alert('Profile updated successfully!');
-      //   },
-      //   error: (err) => {
-      //     console.error('Error updating profile:', err);
-      //   }
-      // });
-    }
+    // Payload banate waqt sirf required + filled optional fields bhejo
+    const payload: any = {
+      userId: formValue.userId,
+      name: formValue.name,
+      phone: formValue.phone
+    };
+
+    if (formValue.profileImage) payload.profileImage = formValue.profileImage;
+    if (formValue.oldPassword) payload.oldPassword = formValue.oldPassword;
+    if (formValue.newPassword) payload.newPassword = formValue.newPassword;
+
+    this.httpService.updateProfile(payload).subscribe({
+      next: (res: any) => {
+        this.loading = false;
+        alert(res.message);
+        this.router.navigate(['/']);
+      },
+      error: (err: any) => {
+        this.loading = false;
+        if (err.error && err.error.message) {
+          alert(err.error.message);
+        } else {
+          alert('Profile update failed. Please try again.');
+        }
+      }
+    });
   }
 }

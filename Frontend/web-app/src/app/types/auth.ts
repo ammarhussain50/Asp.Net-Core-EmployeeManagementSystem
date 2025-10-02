@@ -1,5 +1,5 @@
 export interface LoginTokenDto {
-      id : number
+      id : string
       email : string
       token : string
       role: string;

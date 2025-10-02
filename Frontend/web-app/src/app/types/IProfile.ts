@@ -1,0 +1,15 @@
+export interface IProfile {
+  userId: string;
+  name: string;
+  phone: string;
+  profileImage?: string | null;
+  oldPassword: string;
+  newPassword: string;
+}
+
+
+export interface IProfileResponse {
+  name: string;
+  phone: string;
+  profileImage: string;
+}

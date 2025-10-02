@@ -1,4 +1,5 @@
-﻿using EMS_Backend.DTO;
+﻿using EMS_Backend.Data;
+using EMS_Backend.DTO;
 using EMS_Backend.Entity;
 using EMS_Backend.Interface;
 using EMS_Backend.Mappers;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace EMS_Backend.Controllers
@@ -17,11 +19,13 @@ namespace EMS_Backend.Controllers
     {
         private readonly UserManager<AppUser> userManager;
         private readonly IRepository<Employee> employeeRepo;
+       
 
-        public ProfileController(UserManager<AppUser> userManager, IRepository<Employee> employeeRepo)
+        public ProfileController(UserManager<AppUser> userManager, IRepository<Employee> employeeRepo )
         {
             this.userManager = userManager;
             this.employeeRepo = employeeRepo;
+            
         }
 
         [Authorize]
@@ -40,7 +44,8 @@ namespace EMS_Backend.Controllers
             var result = await userManager.UpdateAsync(user);
 
             if (!result.Succeeded)
-                return BadRequest(result.Errors);
+                // 👇 ab poora error bhej do taake frontend pe clear dikhe
+                return BadRequest(new { message = "User update failed", errors = result.Errors });
 
             // 🔹 Update Employee 
             var employee = await employeeRepo.FindAsync(e => e.AppUserId == userId);
@@ -63,34 +68,21 @@ namespace EMS_Backend.Controllers
         }
 
         [Authorize]
-        [HttpGet("Profile")]
-        public async Task<IActionResult> GetProfile()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProfile(string id)
         {
-
-            // 1. JWT se current logged-in user ka id nikaal lo
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(userId))
-                return Unauthorized("Invalid token.");
-
-            // 1. Find User
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await userManager.FindByIdAsync(id);
             if (user == null)
-                return NotFound("User not found.");
+                return NotFound(new { message = "User does not exist." });
 
-            // 2. Find Employee
-            var employee = await employeeRepo.FindAsync(e => e.AppUserId == userId);
+            var employee = await employeeRepo.FindAsync(e => e.AppUserId == id);
+            if (employee == null)
+                return NotFound(new { message = "Employee does not exist." });
 
-            // 3. Map to DTO
-            var dto = new ProfileDto
-            {
-                //UserId = user.Id,
-                Email = user.Email,
-                ProfileImage = user.ProfileImage,
-                Name = employee?.Name,   // null-check in case employee record missing
-                Phone = employee?.Phone
-            };
 
-            return Ok(dto);
+            var profile = (user, employee).ToProfileResponseDto();
+
+            return Ok(profile);
         }
 
     }
