@@ -68,32 +68,69 @@ export class Profile implements OnInit {
   }
 
   updateProfile() {
+    if (this.profileForm.invalid) {
+      alert('Please fill all required fields correctly');
+      return;
+    }
+
     this.loading = true;
     const formValue = this.profileForm.value;
 
-    // Payload banate waqt sirf required + filled optional fields bhejo
-    const payload: any = {
+    // ✅ Backend ke exact DTO structure ke according payload
+    const payload: IProfile = {
       userId: formValue.userId,
-      name: formValue.name,
-      phone: formValue.phone
+      name: formValue.name.trim(),
+      phone: formValue.phone.trim(),
+      profileImage: formValue.profileImage.trim(),
+      oldPassword: formValue.oldPassword.trim(),
+      newPassword: formValue.newPassword.trim()
     };
 
-    if (formValue.profileImage) payload.profileImage = formValue.profileImage;
-    if (formValue.oldPassword) payload.oldPassword = formValue.oldPassword;
-    if (formValue.newPassword) payload.newPassword = formValue.newPassword;
+    console.log('Sending Payload:', payload);
 
     this.httpService.updateProfile(payload).subscribe({
       next: (res: any) => {
         this.loading = false;
-        alert(res.message);
+        // Backend string return karta hai directly
+        alert(typeof res === 'string' ? res : res.message || 'Profile updated successfully');
+        
+        // Password fields clear karo after successful update
+        this.profileForm.patchValue({
+          oldPassword: '',
+          newPassword: ''
+        });
+        
         this.router.navigate(['/']);
       },
       error: (err: any) => {
         this.loading = false;
-        if (err.error && err.error.message) {
-          alert(err.error.message);
+        console.error('Full Error:', err);
+        console.error('Error Status:', err.status);
+        console.error('Error Body:', err.error);
+        
+        // Backend se aane wale different error formats handle karo
+        if (err.error) {
+          if (typeof err.error === 'string') {
+            // Direct string error message
+            alert(err.error);
+          } else if (err.error.message) {
+            // Object with message property
+            alert(err.error.message);
+          } else if (err.error.errors) {
+            // Identity errors array (from ChangePasswordAsync)
+            if (Array.isArray(err.error.errors)) {
+              const errorMessages = err.error.errors.map((e: any) => e.description || e.code).join('\n');
+              alert('Errors:\n' + errorMessages);
+            } else {
+              // Validation errors object
+              const errors = Object.values(err.error.errors).flat();
+              alert('Validation errors:\n' + errors.join('\n'));
+            }
+          } else {
+            alert('Profile update failed. Please try again.');
+          }
         } else {
-          alert('Profile update failed. Please try again.');
+          alert('Profile update failed. Please check your connection.');
         }
       }
     });

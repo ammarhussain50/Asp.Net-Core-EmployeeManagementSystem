@@ -2,7 +2,7 @@ export interface IProfile {
   userId: string;
   name: string;
   phone: string;
-  profileImage?: string | null;
+  profileImage: string ;
   oldPassword: string;
   newPassword: string;
 }

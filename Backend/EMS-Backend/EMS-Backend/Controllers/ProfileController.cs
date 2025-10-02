@@ -64,7 +64,8 @@ namespace EMS_Backend.Controllers
                     return BadRequest(pwdResult.Errors);
             }
 
-            return Ok("Profile updated successfully.");
+            // ✅ JSON object return karo instead of plain string
+            return Ok(new { message = "Profile updated successfully." });
         }
 
         [Authorize]
