@@ -1,11 +1,13 @@
 ﻿using EMS_Backend.Data;
 using EMS_Backend.Entity;
+using EMS_Backend.Helpers;
 using EMS_Backend.Interface;
 using EMS_Backend.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using EMS_Backend.Repository;
 
 namespace EMS_Backend.Controllers
 {
@@ -13,23 +15,27 @@ namespace EMS_Backend.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private readonly IRepository<Employee> employeerepository;
+        private readonly IEmployeeRespository employeerepository;
+
+        //private readonly IRepository<Employee> employeerepository;
         private readonly UserManager<AppUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public EmployeeController(IRepository<Employee> employeerepository, UserManager<AppUser> userManager,
+        public EmployeeController( IEmployeeRespository employeerepository, UserManager<AppUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             this.employeerepository = employeerepository;
+            //this.employeerepository = employeerepository;
             this.userManager = userManager;
             this.roleManager = roleManager;
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] SearchOptions options)
         {
-            return Ok(await employeerepository.GetAllAsync());
+            var result = await employeerepository.GetAllAsync(options);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]

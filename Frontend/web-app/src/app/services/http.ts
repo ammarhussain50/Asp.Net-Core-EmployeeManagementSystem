@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IDepartment } from '../types/IDepartment';
 import { IEmployee } from '../types/IEmployee';
 import { environment } from '../../environments/environment';
 import { IProfile, IProfileResponse } from '../types/IProfile';
+import { IPagedData } from '../types/IPagedData';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,13 @@ export class HttpService {
 deleteDepartment(id: number) {
   return this.http.delete(environment.apiUrl + `/api/Department/${id}`); 
 }
-getEmployees(){
-  return this.http.get<IEmployee[]>(environment.apiUrl+`/api/Employee`)
+getEmployees(filter : any){
+  let params = new HttpParams({ fromObject: filter });
+
+  return this.http.get<IPagedData<IEmployee>>(
+    `${environment.apiUrl}/api/Employee`, 
+    { params }   // 👈 direct params pass karo, .toString() ki zaroorat nahi
+  );
 }
 addEmployee(employee: IEmployee){
     return this.http.post(environment.apiUrl+'/api/Employee',employee);

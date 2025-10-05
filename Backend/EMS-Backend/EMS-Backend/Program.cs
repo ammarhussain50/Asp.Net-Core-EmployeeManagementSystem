@@ -27,8 +27,12 @@ builder.Services.AddOpenApi();
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Services.AddScoped<IRepository<Department>, Repository<Department>>();
-builder.Services.AddScoped<IRepository<Employee>, Repository<Employee>>();
+// dependency inject for department
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+
+// dependency inject for employee
+
+builder.Services.AddScoped<IEmployeeRespository, EmployeeRepository>();
 //builder.Services.AddScoped<IRepository<User>, Repository<User>>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 

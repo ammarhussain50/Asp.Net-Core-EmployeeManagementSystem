@@ -1,149 +1,142 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
-import { LucideAngularModule, Pencil, Trash2, LoaderCircle, X, Search } from 'lucide-angular';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { LucideAngularModule, Pencil, Trash2, LoaderCircle, X } from 'lucide-angular'; // Loader icon
+
 import { IDepartment } from '../../types/IDepartment';
 import { IEmployee } from '../../types/IEmployee';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-employee',
-  imports: [LucideAngularModule, ReactiveFormsModule, FormsModule],
+  imports: [LucideAngularModule,ReactiveFormsModule],
   templateUrl: './employee.html',
   styleUrl: './employee.css'
 })
 export class Employee implements OnInit {
-  readonly Pencil = Pencil;
+  Math = Math; // ✅ expose Math to your template
+readonly Pencil = Pencil;
   readonly Trash2 = Trash2;
   readonly LoaderCircle = LoaderCircle;
-  readonly X = X;
-  readonly Search = Search;
+  searchControl = new FormControl('');
+filter: any = {
+
+};   //  isme saare filters store honge
+pageIndex : number  = 0;
+pageSize : number  = 5;
+totalCount : number  = 0;
 
   httpService = inject(HttpService);
-  fb = inject(FormBuilder);
   
+
   departments: IDepartment[] = [];
-  employeeForm!: FormGroup;
-  
+  fb = inject(FormBuilder);
+    employeeForm!: FormGroup;
+
   employees: IEmployee[] = [];
-  filteredEmployees: IEmployee[] = []; // ✅ Filtered list for display
-  searchQuery: string = ''; // ✅ Search input value
-  
-  loading: boolean = true;
+  loading:boolean = true; // track loading
+    // modal state
   isModalOpen: boolean = false;
   editId: number = 0;
+  DepartmentName: string = '';
+  readonly X = X;
 
-  openModal() {
+    openModal() {
     this.isModalOpen = true;
-    localStorage.setItem("modalOpen", "true");
   }
 
   closeModal() {
     this.isModalOpen = false;
-    localStorage.setItem("modalOpen", "false");
     this.employeeForm.reset({
-      id: 0,   
+       id: 0,   
     });
     this.editId = 0;
-    this.employeeForm.get('gender')?.enable();
-    this.employeeForm.get('joiningDate')?.enable();
-    this.employeeForm.get('dateOfBirth')?.enable();
+      this.employeeForm.get('gender')?.enable();
+      this.employeeForm.get('joiningDate')?.enable();
+      this.employeeForm.get('dateOfBirth')?.enable();
   }
 
-  getEmployees() {
-    this.httpService.getEmployees().subscribe({
+
+getEmployees() {
+    this.filter.pageIndex = this.pageIndex;
+  this.filter.pageSize = this.pageSize;
+    this.httpService.getEmployees(this.filter).subscribe({
       next: (result) => {
-        this.employees = result;
-        this.filteredEmployees = result; // ✅ Initially show all
-        this.loading = false;
+        this.employees = result.data;
+        this.totalCount = result.totalCount;
+        this.loading = false; // stop loader when data arrives
       },
       error: () => {
-        this.loading = false;
+        this.loading = false; // stop loader on error too
       }
     });
-  }
 
-  // ✅ Real-time search filter
-  onSearchChange() {
-    const query = this.searchQuery.toLowerCase().trim();
-    
-    if (!query) {
-      this.filteredEmployees = this.employees; // Show all if empty
-      return;
-    }
-
-    this.filteredEmployees = this.employees.filter(employee => 
-      employee.name.toLowerCase().includes(query) ||
-      employee.email.toLowerCase().includes(query) ||
-      employee.phone.toLowerCase().includes(query) ||
-      employee.id.toString().includes(query)
-    );
-  }
-
-  // ✅ Clear search
-  clearSearch() {
-    this.searchQuery = '';
-    this.filteredEmployees = this.employees;
-  }
+}
 
   addEmployee() {
     console.log('New Employee:', this.employeeForm.value);
     this.httpService.addEmployee(this.employeeForm.value).subscribe({
       next: () => {
-        this.getEmployees();
+        this.getEmployees(); // Refresh the list after adding
         alert('Employee added successfully');
       },
       error: () => {
         alert('Failed to add employee');
       }
     });
+
     this.closeModal();
   }
 
   editEmployee(employee: IEmployee) {
-    let value = employee.id;
-    this.httpService.getEmployeeById(value).subscribe((result) => {
-      console.log(result);
-      this.openModal();
-      this.employeeForm.patchValue(result as any);
-      this.employeeForm.get('gender')?.disable();
-      this.employeeForm.get('joiningDate')?.disable();
-      this.employeeForm.get('dateOfBirth')?.disable();
-      this.editId = employee.id;
-    });
+    
+  
+    this.editId = employee.id;
+    console.log(employee);
+    
+    this.employeeForm.patchValue(
+      employee
+    );
+     this.employeeForm.get('gender')?.disable();
+     this.employeeForm.get('joiningDate')?.disable();
+     this.employeeForm.get('dateOfBirth')?.disable();
+
+
+    this.openModal();
+    
+    
+
   }
-
-  updateEmployee() {
-    if (this.employeeForm.invalid) return;
-
-    const employeeData = this.employeeForm.value;
-
-    this.httpService.updateEmployee(this.editId, employeeData).subscribe({
-      next: () => {
+  updateEmployee(){
+    this.httpService.updateEmployee(this.editId,this.employeeForm.value).subscribe({
+      next:()=>{
         this.getEmployees();
         alert('Employee updated successfully');
         this.closeModal();
         this.editId = 0;
       },
-      error: () => {
+      error:()=>{
         alert('Failed to update employee');
       }
     });
-  }
 
+  }
   getDepartments() {
     this.httpService.getDepartments().subscribe({
       next: (result) => {
         this.departments = result;
+     
       },
       error: () => {
         alert('Failed to fetch departments');
+    
       }
     });
-  }
+
+}
 
   deleteEmployee(id: number) {
-    if (!confirm('Are you sure you want to delete this employee?')) return;
-    
     this.httpService.deleteEmployee(id).subscribe({
       next: () => {
         this.getEmployees();
@@ -154,13 +147,31 @@ export class Employee implements OnInit {
       }
     });
   }
+  // page change handler
+// page change handler
+onPageChange(newPage: number) {
+  this.pageIndex = newPage;
+  this.getEmployees();
+}
 
-  ngOnInit() {
+
+
+  ngOnInit() : void {
+     // jab search change ho
+  this.searchControl.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((result: string | null) => {
+    this.filter.search = result || '';   // agar null ho to empty string
+     
+    this.pageIndex = 0; // reset to first page on new search
+    console.log(result);
+    
+    this.getEmployees();                 // call reload
+  });
+
     this.getEmployees();
     this.getDepartments();
 
-    this.employeeForm = this.fb.group({
-      id: [0],
+  this.employeeForm = this.fb.group({
+    id: [0],
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)]],
@@ -168,8 +179,10 @@ export class Employee implements OnInit {
       jobTitle: [null, Validators.required],
       departmentId: [null, Validators.required],
       joiningDate: ['', Validators.required],
-      lastWorkingDate: [''],
+      lastWorkingDate: [''], // optional
       dateOfBirth: ['', Validators.required],
     });
+  
   }
+
 }
