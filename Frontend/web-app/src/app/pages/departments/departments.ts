@@ -1,105 +1,131 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { LucideAngularModule, Pencil, Trash2, LoaderCircle, X } from 'lucide-angular'; // Loader icon
+import { FormsModule } from '@angular/forms';
 import { HttpService } from '../../services/http';
 import { IDepartment } from '../../types/IDepartment';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Plus, Edit, Trash2, X, LoaderCircle } from 'lucide-angular';
 
 @Component({
   selector: 'app-departments',
-  standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [LucideAngularModule,FormsModule],
   templateUrl: './departments.html',
-  styleUrl: './departments.css',
+  styleUrl: './departments.css'
 })
-export class Departments {
+export class Departments implements OnInit {
+    Math = Math; // ✅ expose Math to your template
+
+  readonly Pencil = Pencil;
+  readonly Trash2 = Trash2;
+  readonly LoaderCircle = LoaderCircle;
+filter: any = {
+
+};   //  isme saare filters store honge
+pageIndex : number  = 0;
+pageSize : number  = 5;
+totalCount : number  = 0;
+
   httpService = inject(HttpService);
+
   departments: IDepartment[] = [];
-  showModal: boolean = false;
-  newDepartment: string = '';
+  loading:boolean = true; // track loading
+    // modal state
+  isModalOpen: boolean = false;
   editId: number = 0;
-  isLoading: boolean = false;
+  DepartmentName: string = '';
+  readonly X = X;
 
-  // expose icons for template
-  Plus = Plus;
-  Edit = Edit;
-  Trash2 = Trash2;
-  X = X;
-  LoaderCircle = LoaderCircle;
-
-  ngOnInit() {
-    this.getLatestData();
-  }
-
- getLatestData() {
-  this.isLoading = true;
-  this.httpService.getDepartments().subscribe({
-    next: (result) => {
-      
-        this.departments = result;
-        this.isLoading = false;
-    },
-    error: () => {
-      this.isLoading = false;
-    }
-  });
-}
-
-
-  openModal() {
-    this.showModal = true;
-    this.newDepartment = '';
-    this.editId = 0;
+    openModal() {
+    this.isModalOpen = true;
   }
 
   closeModal() {
-    this.showModal = false;
-    this.newDepartment = '';
+    this.isModalOpen = false;
+    this.DepartmentName = '';
     this.editId = 0;
   }
 
-  saveDepartment() {
-    this.isLoading = true;
-    this.httpService.addDepartment(this.newDepartment).subscribe({
-      next: () => {
-        alert('Department added successfully');
-        this.closeModal();
-        this.getLatestData();
-        this.isLoading = false;
+
+getDepartments() {
+     this.filter.pageIndex = this.pageIndex;
+  this.filter.pageSize = this.pageSize;
+    this.httpService.getDepartments(this.filter).subscribe({
+      next: (result) => {
+          this.departments = result.data;
+        this.totalCount = result.totalCount;
+        this.loading = false; // stop loader when data arrives
       },
-      error: () => (this.isLoading = false)
+      error: () => {
+        this.loading = false; // stop loader on error too
+        alert('Failed to fetch departments');
+        
+      }
     });
+
+}
+
+
+
+
+  addDepartment() {
+    console.log('New Department:', this.DepartmentName);
+    this.httpService.addDepartment(this.DepartmentName).subscribe({
+      next: () => {
+        this.getDepartments(); // Refresh the list after adding
+        alert('Department added successfully');
+      },
+      error: () => {
+        alert('Failed to add department');
+      }
+    });
+
+    this.closeModal();
   }
 
   editDepartment(department: IDepartment) {
-    this.newDepartment = department.name;
+    this.DepartmentName = department.name;
     this.editId = department.id;
-    this.showModal = true;
-  }
+    
+    this.openModal();
+    
+    
 
-  updateDepartment() {
-    this.isLoading = true;
-    this.httpService.updateDepartment(this.editId, this.newDepartment).subscribe({
-      next: () => {
+  }
+  updateDepartment(){
+    this.httpService.updateDepartment(this.editId,this.DepartmentName).subscribe({
+      next:()=>{
+        this.getDepartments();
         alert('Department updated successfully');
         this.closeModal();
-        this.getLatestData();
         this.editId = 0;
-        this.isLoading = false;
       },
-      error: () => (this.isLoading = false)
+      error:()=>{
+        alert('Failed to update department');
+      }
     });
+
   }
 
   deleteDepartment(id: number) {
-    this.isLoading = true;
     this.httpService.deleteDepartment(id).subscribe({
       next: () => {
+        this.getDepartments();
         alert('Department deleted successfully');
-        this.getLatestData();
-        this.isLoading = false;
       },
-      error: () => (this.isLoading = false)
+      error: () => {
+        alert('Failed to delete department');
+      }
     });
   }
+
+  ngOnInit() {
+    this.getDepartments();
+  
+  }
+    // page change handler
+// page change handler
+onPageChange(newPage: number) {
+  this.pageIndex = newPage;
+  this.getDepartments();
+}
+
+
 }

@@ -1,108 +1,169 @@
-<div class="p-4">
-  <div class="flex justify-between mb-4">
-    <h1 class="text-xl font-semibold">Departments</h1>
-
-    <button
-      (click)="openModal()"
-      class="bg-green-500 text-white px-3 py-1 rounded flex items-center gap-1"
-    >
-      <lucide-icon [img]="Plus" class="w-4 h-4"></lucide-icon>
-      Add
+<div class="space-y-6">
+  <!-- Header -->
+  <div class="flex items-center justify-between">
+    <h2 class="text-xl font-semibold text-gray-800">Departments</h2>
+    <button (click)="openModal()" 
+            class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium 
+                   hover:bg-blue-700 transition shadow-sm">
+      + Add Department
     </button>
   </div>
 
   <!-- Loader -->
-  @if (isLoading) {
-    <div class="flex items-center justify-center py-10">
-      <lucide-icon [img]="LoaderCircle" class="w-10 h-10 text-blue-600 animate-spin"></lucide-icon>
+  @if (loading) {
+    <div class="flex justify-center items-center py-12">
+      <lucide-icon [img]="LoaderCircle" class="w-8 h-8 text-blue-600 animate-spin"></lucide-icon>
     </div>
   }
 
-  <!-- Table -->
-  @if (!isLoading) {
-    <table class="w-full border">
-      <thead>
-        <tr class="bg-gray-200">
-          <th class="p-2 border">ID</th>
-          <th class="p-2 border">Name</th>
-          <th class="p-2 border">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of departments; track $index) {
-          <tr>
-            <td class="p-2 border">{{ $index + 1 }}</td>
-            <td class="p-2 border">{{ item.name }}</td>
-            <td class="p-2 border">
-              <button
-                (click)="editDepartment(item)"
-                class="bg-blue-500 text-white px-2 py-1 rounded flex items-center gap-1"
-              >
-                <lucide-icon [img]="Edit" class="w-4 h-4"></lucide-icon>
-                Edit
-              </button>
+  <!-- Table or Empty State -->
+  @else {
+    @if (departments.length > 0) {
+      <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100">
+        <table class="w-full text-sm text-left">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="px-6 py-4 text-gray-700 font-semibold">#</th>
+              <th class="px-6 py-4 text-gray-700 font-semibold">ID</th>
+              <th class="px-6 py-4 text-gray-700 font-semibold">Name</th>
+              <th class="px-6 py-4 text-gray-700 font-semibold text-center">Actions</th>
+            </tr>
+          </thead>
 
-              <button
-                (click)="deleteDepartment(item.id)"
-                class="bg-red-500 text-white px-2 py-1 rounded ml-2 flex items-center gap-1"
-              >
-                <lucide-icon [img]="Trash2" class="w-4 h-4"></lucide-icon>
-                Delete
-              </button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  }
-
-  <!-- Modal -->
-  @if (showModal) {
-    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div class="bg-white p-4 rounded w-96">
-        <h2 class="text-lg mb-3">
-          {{ editId === 0 ? 'Add Department' : 'Edit Department' }}
-        </h2>
-        <form (ngSubmit)="editId === 0 ? saveDepartment() : updateDepartment()">
-          <input
-            type="text"
-            [(ngModel)]="newDepartment"
-            name="name"
-            placeholder="Department Name"
-            class="border p-2 w-full mb-3"
-          />
-          <div class="text-right">
-            <button
-              type="button"
-              (click)="closeModal()"
-              class="bg-gray-300 px-3 py-1 rounded mr-2 flex items-center gap-1"
-            >
-              <lucide-icon [img]="X" class="w-4 h-4"></lucide-icon>
-              Cancel
-            </button>
-
-            @if (editId === 0) {
-              <button
-                type="submit"
-                class="bg-green-500 text-white px-3 py-1 rounded flex items-center gap-1"
-              >
-                <lucide-icon [img]="Plus" class="w-4 h-4"></lucide-icon>
-                Add
-              </button>
+          <tbody class="divide-y divide-gray-100">
+            @for (item of departments; track item.id) {
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="px-6 py-4 text-gray-800 font-medium">{{ (pageIndex * pageSize) + $index + 1 }}</td>
+                <td class="px-6 py-4 text-gray-800 font-medium">{{ item.id }}</td>
+                <td class="px-6 py-4 text-gray-700">{{ item.name }}</td>
+                <td class="px-6 py-4 flex justify-center gap-3">
+                  <button (click)="editDepartment(item)" class="p-2 rounded-lg hover:bg-blue-100 text-blue-600 transition">
+                    <lucide-icon [img]="Pencil" class="w-5 h-5"></lucide-icon>
+                  </button>
+                  <button (click)="deleteDepartment(item.id)" class="p-2 rounded-lg hover:bg-red-100 text-red-600 transition">
+                    <lucide-icon [img]="Trash2" class="w-5 h-5"></lucide-icon>
+                  </button>
+                </td>
+              </tr>
             }
+          </tbody>
+        </table>
+               <!-- pagination -->
+         <!-- Pagination Controls -->
+<div class="flex justify-between items-center px-6 py-4 bg-white border-t border-gray-200">
+  
+  <!-- Showing Info -->
+  <p class="text-sm text-gray-600">
+    Showing 
+    <span class="font-medium">{{ pageIndex * pageSize + 1 }}</span>
+    -
+    <span class="font-medium">
+      {{ Math.min((pageIndex + 1) * pageSize, totalCount) }}
+    </span>
+    of 
+    <span class="font-medium">{{ totalCount }}</span> employees
+  </p>
 
-            @if (editId !== 0) {
-              <button
-                type="submit"
-                class="bg-blue-500 text-white px-3 py-1 rounded flex items-center gap-1"
-              >
-                <lucide-icon [img]="Edit" class="w-4 h-4"></lucide-icon>
-                Update
-              </button>
-            }
-          </div>
-        </form>
+  <!-- Buttons -->
+  <div class="flex items-center gap-2">
+    <button
+      (click)="onPageChange(pageIndex - 1)"
+      [disabled]="pageIndex === 0"
+      class="px-3 py-1.5 text-sm rounded-lg border border-gray-300 
+             hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+      Prev
+    </button>
+
+    <!-- Page numbers (optional simple view) -->
+    <span class="text-sm text-gray-700">
+      Page {{ pageIndex + 1 }} of {{ Math.ceil(totalCount / pageSize) }}
+    </span>
+
+    <button
+      (click)="onPageChange(pageIndex + 1)"
+      [disabled]="(pageIndex + 1) * pageSize >= totalCount"
+      class="px-3 py-1.5 text-sm rounded-lg border border-gray-300 
+             hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+      Next
+    </button>
+  </div>
+</div>
+
+       
+         
+         
+         
       </div>
-    </div>
+    } @else {
+      <!-- Empty State -->
+      <div class="flex flex-col items-center justify-center py-16 bg-white rounded-xl shadow-lg border border-gray-100">
+        <lucide-icon [img]="X" class="w-10 h-10 text-gray-400 mb-3"></lucide-icon>
+        <p class="text-gray-500 text-sm">No departments found. Try adding one!</p>
+      </div>
+    }
   }
 </div>
+
+<!-- Modal -->
+@if (isModalOpen) {
+  <div class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6 relative">
+      
+      <!-- Close Button -->
+      <button (click)="closeModal()" 
+              class="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition">
+        <lucide-icon [img]="X" class="w-5 h-5 text-gray-500"></lucide-icon>
+      </button>
+
+      @if(editId) {
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Edit Department</h3>
+      } @else {
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Add Department</h3>
+      }
+
+      <!-- Form -->
+      <form #deptForm="ngForm" class="space-y-4">
+
+        <!-- Department Name Input -->
+        <input type="text" 
+               [(ngModel)]="DepartmentName"
+               name="departmentName"
+               required
+               minlength="3"
+               #deptName="ngModel"
+               placeholder="Department Name"
+               class="w-full px-4 py-2 rounded-lg border border-gray-300 
+                      focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800"/>
+
+        <!-- Error Messages -->
+        @if(deptName.invalid && deptName.touched) {
+          <p class="text-sm text-red-600">
+            @if(deptName.errors?.['required']) {
+              Department name is required.
+            }
+            @if(deptName.errors?.['minlength']) {
+              Department name must be at least 3 characters.
+            }
+          </p>
+        }
+
+        <!-- Submit Buttons -->
+        @if(editId) {
+          <button (click)="updateDepartment()" 
+                  [disabled]="deptForm.invalid"
+                  class="w-full px-4 py-2 rounded-lg bg-blue-600 text-white font-medium 
+                         hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
+            Update
+          </button>
+        } @else {
+          <button (click)="addDepartment()" 
+                  [disabled]="deptForm.invalid"
+                  class="w-full px-4 py-2 rounded-lg bg-blue-600 text-white font-medium 
+                         hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
+            Add
+          </button>
+        }
+      </form>
+    </div>
+  </div>
+}

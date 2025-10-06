@@ -123,9 +123,9 @@ getEmployees() {
 
   }
   getDepartments() {
-    this.httpService.getDepartments().subscribe({
+    this.httpService.getDepartments({}).subscribe({
       next: (result) => {
-        this.departments = result;
+        this.departments = result.data;
      
       },
       error: () => {
