@@ -4,6 +4,7 @@ using EMS_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EMS_Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251007190748_Leave Table")]
+    partial class LeaveTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,9 +169,6 @@ namespace EMS_Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
                     b.Property<DateOnly>("LeaveDate")
                         .HasColumnType("date");
 
@@ -183,8 +183,6 @@ namespace EMS_Backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Leaves");
                 });
@@ -335,17 +333,6 @@ namespace EMS_Backend.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Department");
-                });
-
-            modelBuilder.Entity("EMS_Backend.Model.Leave", b =>
-                {
-                    b.HasOne("EMS_Backend.Entity.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

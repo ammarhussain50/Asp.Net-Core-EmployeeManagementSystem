@@ -33,6 +33,8 @@ builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 // dependency inject for employee
 
 builder.Services.AddScoped<IEmployeeRespository, EmployeeRepository>();
+// dependency inject for leave
+builder.Services.AddScoped<IRepository<Leave>, Repository<Leave>>();
 //builder.Services.AddScoped<IRepository<User>, Repository<User>>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
