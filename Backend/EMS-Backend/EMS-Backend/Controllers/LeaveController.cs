@@ -13,10 +13,12 @@ namespace EMS_Backend.Controllers
     public class LeaveController : ControllerBase
     {
         private readonly IRepository<Leave> leaveRepo;
+        private readonly IUserContextService userContext;
 
-        public LeaveController(IRepository<Leave> LeaveRepo)
+        public LeaveController(IRepository<Leave> LeaveRepo, IUserContextService UserContext)
         {
             leaveRepo = LeaveRepo;
+            userContext = UserContext;
         }
 
         [HttpPost("apply")]
@@ -28,12 +30,29 @@ namespace EMS_Backend.Controllers
                 return BadRequest("Invalid leave application data.");
             }
 
+            // 🔹 Get EmployeeId from JWT claims via UserContextService
+            var employeeId = await userContext.GetEmployeeIdFromClaimsAsync(User);
+            if (employeeId == null)
+                return Unauthorized("Employee not found.");
+
+
             // Use the mapper to create a Leave entity
-            var leave = model.ToLeave();
+            var leave = model.ToLeave((int)employeeId);
 
             await leaveRepo.AddAsync(leave);
             await leaveRepo.SaveChangesAsync();
             return Ok(new { Message = "Leave application submitted successfully." });
         }
+
+        //[HttpPost("apply")]
+        //[Authorize(Roles = "Employee,Admin")]
+        //public async Task<IActionResult> LeaveStatus([FromBody] LeaveDto model)
+        //{
+        //    var leave = await leaveRepo.GetByIdAsync(model.Id!.Value);
+        //    leave.Status = model.Status!.Value;
+        //    //leaveRepo.Update(leave);
+        //    await leaveRepo.SaveChangesAsync();
+        //    return Ok();
+        //}
     }
 }

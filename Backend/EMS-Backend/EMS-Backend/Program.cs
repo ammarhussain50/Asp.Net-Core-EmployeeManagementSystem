@@ -37,6 +37,7 @@ builder.Services.AddScoped<IEmployeeRespository, EmployeeRepository>();
 builder.Services.AddScoped<IRepository<Leave>, Repository<Leave>>();
 //builder.Services.AddScoped<IRepository<User>, Repository<User>>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserContextService, UserContextService>();
 
 
 

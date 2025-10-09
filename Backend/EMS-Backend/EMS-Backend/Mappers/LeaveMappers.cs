@@ -5,7 +5,7 @@ namespace EMS_Backend.Mappers
 {
     public static class LeaveMappers
     {
-        public static Leave ToLeave(this LeaveDto dto)
+        public static Leave ToLeave(this LeaveDto dto,int empid)
         {
             return new Leave
             {
@@ -13,7 +13,7 @@ namespace EMS_Backend.Mappers
                 Reason = dto.Reason,
                 LeaveDate = dto.LeaveDate,
                 Status = (int)LeaveStatus.Pending,
-                EmployeeId = (int)dto.EmployeeId
+                EmployeeId = empid
             };
         }
     }
