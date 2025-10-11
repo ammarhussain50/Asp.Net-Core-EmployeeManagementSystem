@@ -16,7 +16,7 @@ namespace EMS_Backend.Controllers
 
         //private readonly IRepository<Department> departmentRepository;
 
-        public DepartmentController( IDepartmentRepository departmentRepository)
+        public DepartmentController(IDepartmentRepository departmentRepository)
         {
             this.departmentRepository = departmentRepository;
             //this.departmentRepository = departmentRepository;

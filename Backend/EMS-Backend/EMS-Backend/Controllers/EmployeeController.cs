@@ -21,7 +21,7 @@ namespace EMS_Backend.Controllers
         private readonly UserManager<AppUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public EmployeeController( IEmployeeRespository employeerepository, UserManager<AppUser> userManager,
+        public EmployeeController(IEmployeeRespository employeerepository, UserManager<AppUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             this.employeerepository = employeerepository;

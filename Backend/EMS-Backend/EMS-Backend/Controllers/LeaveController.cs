@@ -25,7 +25,7 @@ namespace EMS_Backend.Controllers
         [Authorize(Roles = "Employee")]
         public async Task<IActionResult> ApplyLeave([FromBody] LeaveDto model)
         {
-            if(model == null)
+            if (model == null)
             {
                 return BadRequest("Invalid leave application data.");
             }
@@ -44,15 +44,47 @@ namespace EMS_Backend.Controllers
             return Ok(new { Message = "Leave application submitted successfully." });
         }
 
-        //[HttpPost("apply")]
-        //[Authorize(Roles = "Employee,Admin")]
-        //public async Task<IActionResult> LeaveStatus([FromBody] LeaveDto model)
-        //{
-        //    var leave = await leaveRepo.GetByIdAsync(model.Id!.Value);
-        //    leave.Status = model.Status!.Value;
-        //    //leaveRepo.Update(leave);
-        //    await leaveRepo.SaveChangesAsync();
-        //    return Ok();
-        //}
+        [HttpPost("update-leave")]
+        [Authorize(Roles = "Admin,Employee")]
+        public async Task<IActionResult> UpdateLeaveStatus([FromBody] LeaveDto model)
+        {
+            if (model == null)
+            {
+                return BadRequest("Invalid leave update data.");
+            }
+            var leave = await leaveRepo.GetByIdAsync(model.Id!.Value);
+            if (leave == null)
+            {
+                return NotFound("Leave application not found.");
+            }
+            //  Check role from JWT claim
+            var isAdmin = userContext.IsAdmin(User);
+
+            if (isAdmin)
+            {
+                //  Admin can update any status (use mapper directly)
+                leave.UpdateLeaveFromDto(model);
+            }
+            else
+            {
+                //  Employee can only cancel their leave
+                if (model.Status == (int)LeaveStatus.Cancelled)
+                {
+                    leave.UpdateLeaveFromDto(model);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status403Forbidden, new { message = "Only admin can change this status." });
+
+                }
+            }
+
+            leaveRepo.Update(leave);
+            await leaveRepo.SaveChangesAsync();
+
+            return Ok(new { message = "Leave updated successfully" });
+        }
+
+
     }
 }

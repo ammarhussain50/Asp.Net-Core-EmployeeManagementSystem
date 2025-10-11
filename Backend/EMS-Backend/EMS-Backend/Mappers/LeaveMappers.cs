@@ -9,12 +9,18 @@ namespace EMS_Backend.Mappers
         {
             return new Leave
             {
-                Type = (int)dto.Type,
+                Type = dto.Type ?? (int)LeaveType.Sick, // Default value if null
                 Reason = dto.Reason,
                 LeaveDate = dto.LeaveDate,
                 Status = (int)LeaveStatus.Pending,
                 EmployeeId = empid
             };
+        }
+        public static void UpdateLeaveFromDto(this Leave leave, LeaveDto dto)
+        {
+            leave.Status = dto.Status!.Value;
+
+
         }
     }
 }

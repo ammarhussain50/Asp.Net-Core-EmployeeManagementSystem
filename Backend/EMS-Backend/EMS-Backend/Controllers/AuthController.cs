@@ -6,6 +6,7 @@ using EMS_Backend.Model;
 using EMS_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace EMSBackend.Controllers
 {
@@ -52,7 +53,7 @@ namespace EMSBackend.Controllers
                     var token = await _tokenService.CreateTokenAsync(appUser);
                     var roles = await _userManager.GetRolesAsync(appUser); // yeh current user k role nikale ga identity sy array deta hy to hmny first aur default lgayab
                     var role = roles.FirstOrDefault();     // ek hi role milega (Admin ya Employee)
-                    var newUserDto = appUser.ToNewUserDto(token,role);
+                    var newUserDto = appUser.ToNewUserDto(token, role);
 
                     return Ok(newUserDto);
                 }
@@ -79,6 +80,7 @@ namespace EMSBackend.Controllers
                     return BadRequest(ModelState); // Input validation fail ho gayi
 
                 // Email ke zariye user find karo
+                
                 var user = await _userManager.FindByEmailAsync(loginDto.Email);
 
                 if (user == null)
@@ -98,7 +100,7 @@ namespace EMSBackend.Controllers
                 var roles = await _userManager.GetRolesAsync(user); // yeh current user k role nikale ga identity sy array deta hy to hmny first aur default lgayab
                 var role = roles.FirstOrDefault();     // ek hi role mileg
 
-                var userDto = user.ToLoginUserDto(token,role);    // DTO banayo login response ke liye
+                var userDto = user.ToLoginUserDto(token, role);    // DTO banayo login response ke liye
                 return Ok(userDto);                          // 200 OK with token
             }
             catch (Exception e)

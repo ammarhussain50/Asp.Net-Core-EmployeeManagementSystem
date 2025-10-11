@@ -19,7 +19,7 @@ namespace EMS_Backend.Mappers
         }
 
 
-        public static AuthTokenDto ToNewUserDto(this AppUser user, string token,string role)
+        public static AuthTokenDto ToNewUserDto(this AppUser user, string token, string role)
         {
             return new AuthTokenDto
             {
@@ -31,7 +31,7 @@ namespace EMS_Backend.Mappers
             };
         }
 
-        public static LoginTokenDto ToLoginUserDto(this AppUser user, string token,string role)
+        public static LoginTokenDto ToLoginUserDto(this AppUser user, string token, string role)
         {
             return new LoginTokenDto
             {

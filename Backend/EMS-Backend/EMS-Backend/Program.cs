@@ -29,10 +29,12 @@ builder.Services.AddOpenApi();
 
 // dependency inject for department
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IRepository<Department>, Repository<Department>>();
 
 // dependency inject for employee
 
 builder.Services.AddScoped<IEmployeeRespository, EmployeeRepository>();
+builder.Services.AddScoped<IRepository<Employee>, Repository<Employee>>();
 // dependency inject for leave
 builder.Services.AddScoped<IRepository<Leave>, Repository<Leave>>();
 //builder.Services.AddScoped<IRepository<User>, Repository<User>>();
