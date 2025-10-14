@@ -45,7 +45,7 @@ namespace EMS_Backend.Controllers
             return Ok(new { Message = "Leave application submitted successfully." });
         }
 
-        [HttpPost("update-leave")]
+        [HttpPut("update-leave")]
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> UpdateLeaveStatus([FromBody] LeaveDto model)
         {

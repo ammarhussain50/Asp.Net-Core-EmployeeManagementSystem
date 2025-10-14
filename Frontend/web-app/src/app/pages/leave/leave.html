@@ -6,8 +6,8 @@
 
   <!-- Loader -->
   @if (loading) {
-    <div class="flex justify-center p-8">
-      <lucide-icon name="LoaderCircle" class="animate-spin w-6 h-6 text-gray-500"></lucide-icon>
+    <div class="flex justify-center items-center py-12">
+      <lucide-icon [img]="LoaderCircle" class="w-8 h-8 text-blue-600 animate-spin"></lucide-icon>
     </div>
   }
 
@@ -31,43 +31,43 @@
             <tr class="border-t hover:bg-gray-50">
               <td class="p-2 border">{{ leave.id }}</td>
                 <!-- ✅ Type mapping here -->
-              <td class="p-2 border">
-                {{
-                  leave.type === 1
-                    ? 'Sick Leave'
-                    : leave.type === 2
-                    ? 'Casual Leave'
-                    : leave.type === 3
-                    ? 'Earned Leave'
-                    : 'Unknown'
-                }}
-              </td>
+               <td class="px-6 py-4 text-gray-700">{{ getLeaveType(leave.type) }}</td>
               <td class="p-2 border">{{ leave.reason }}</td>
               <td class="p-2 border">{{ leave.leaveDate | date }}</td>
-            <td class="p-2 border">
-  <span
-    class="font-medium"
-    [class.text-yellow-600]="leave.status === 0"
-    [class.text-green-600]="leave.status === 1"
-    [class.text-red-600]="leave.status === 2 || leave.status === 3"
-  >
-    {{ leave.status === 0
-      ? 'Pending'
-      : leave.status === 1
-      ? 'Approved'
-      : 'Cancelled' }}
-  </span>
-</td>
+             <td class="px-6 py-4 text-gray-700">{{ getStatusText(leave.status) }}</td>
 
-              <!-- <td class="p-2 border text-center">
-                <button
-                  class="text-red-600 hover:text-red-800"
-                  title="Cancel Leave"
-                  (click)=""
-                >
-                  <lucide-icon [name]="Trash2" class="w-4 h-4"></lucide-icon>
-                </button>
-              </td> -->
+              <td class="px-6 py-4 flex justify-center gap-3">
+  <!-- If Employee -->
+  @if (authService.isEmployee) {
+    @if (leave.status === LeaveStatus.Pending) {  
+      <!-- Cancel -->
+      <button (click)="updateLeaveStatus(leave.id,LeaveStatus.Cancelled)"
+              class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow 
+                     hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none 
+                     transition-colors duration-300">
+        Cancel
+      </button>
+    }
+  } @else {
+    @if (leave.status === LeaveStatus.Pending) {  
+      <!-- Accept -->
+      <button (click)="updateLeaveStatus(leave.id,LeaveStatus.Accepted)"
+              class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg shadow 
+                     hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:outline-none 
+                     transition-colors duration-300">
+        Accept
+      </button>
+
+      <!-- Reject -->
+      <button (click)="updateLeaveStatus(leave.id,LeaveStatus.Rejected)"
+              class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg shadow 
+                     hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:outline-none 
+                     transition-colors duration-300">
+        Reject
+      </button>
+    }
+  }
+</td>
             </tr>
           }
         </tbody>

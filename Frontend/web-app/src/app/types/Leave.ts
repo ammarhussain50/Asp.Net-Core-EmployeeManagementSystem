@@ -1,8 +1,11 @@
 export interface ILeave{
+     id: number;
       type : LeaveType,
       Reason : string,
       LeaveDate : string,
       status : LeaveStatus
+       employeeId: number;
+  employee?: any;
 }
 
 export enum LeaveType

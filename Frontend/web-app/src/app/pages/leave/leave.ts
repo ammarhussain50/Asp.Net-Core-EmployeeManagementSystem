@@ -2,6 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { LucideAngularModule,  Trash2, LoaderCircle,  } from 'lucide-angular';
 import { Leaves } from '../../services/leave';
 import { DatePipe } from '@angular/common';
+import { LeaveStatus, LeaveType } from '../../types/Leave';
+import { Auth } from '../../services/auth';
 
 
 @Component({
@@ -14,9 +16,11 @@ export class Leave   {
   Math = Math; // ✅ expose Math to your template
   readonly Trash2 = Trash2;
   readonly LoaderCircle = LoaderCircle;
+  readonly LeaveStatus = LeaveStatus;
   
 
   leaveService = inject(Leaves);
+  authService = inject(Auth)
  
 
   leaves: any[] = [];
@@ -58,10 +62,33 @@ export class Leave   {
     });
   }
 
+
+    updateLeaveStatus(leaveId: number, status: number) {
+    this.leaveService.updateLeave(leaveId, status).subscribe({
+      next: () => {
+        
+        this.getLeaves();
+      },
+      error: () => {
+        alert('Failed to update leave status');
+      }
+    });
+  }
+
   onPageChange(newPage: number) {
   this.pageIndex = newPage;
   this.getLeaves();
 }
+
+
+// leave type and status mapping using enums
+  getLeaveType(type: LeaveType): string {
+    return LeaveType[type] || 'Unknown';
+  }
+
+  getStatusText(status: LeaveStatus): string {
+    return LeaveStatus[status] || 'Unknown';
+  }
 
 
  

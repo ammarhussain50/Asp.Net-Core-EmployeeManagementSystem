@@ -10,8 +10,8 @@ namespace EMS_Backend.Mappers
             return new Leave
             {
                 Type = dto.Type ?? (int)LeaveType.Sick, // Default value if null
-                Reason = dto.Reason,
-                LeaveDate = dto.LeaveDate,
+                Reason = dto.Reason!,
+                LeaveDate = dto.LeaveDate.Value,
                 Status = (int)LeaveStatus.Pending,
                 EmployeeId = empid
             };
