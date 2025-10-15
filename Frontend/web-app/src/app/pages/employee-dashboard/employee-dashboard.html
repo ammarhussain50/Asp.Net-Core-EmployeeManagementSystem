@@ -8,6 +8,14 @@
              hover:bg-blue-700 transition shadow-sm">
       Apply Leave
     </button>
+
+    <button (click)="markAttendance()"
+        class="flex-1 min-w-[150px] px-5 py-3 rounded-lg bg-blue-600 text-white 
+               text-sm font-medium hover:bg-blue-700 transition shadow-sm flex 
+               items-center justify-center gap-2">
+        <lucide-icon [img]="CheckCircle" class="w-4 h-4"></lucide-icon>
+        Mark Attendance
+      </button>
   </div>
 </div>
 

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ApplyLeave } from '../../types/ILeave';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Leaves } from '../../services/leave';
-import { LucideAngularModule, X } from 'lucide-angular';
+import { LucideAngularModule, X , CheckCircle} from 'lucide-angular';
 
 @Component({
   selector: 'app-employee-dashboard',
@@ -12,6 +12,7 @@ import { LucideAngularModule, X } from 'lucide-angular';
 })
 export class EmployeeDashboard {
    readonly X = X;
+   readonly CheckCircle = CheckCircle
 
   fb = inject(FormBuilder);
   leaveService = inject(Leaves);
@@ -48,6 +49,21 @@ export class EmployeeDashboard {
       },
       error: () => {
         alert('Failed to apply leave.');
+      },
+    });
+  }
+
+   markAttendance() {
+    this.leaveService.markAttendance().subscribe({
+      next: (res:any) => {
+        alert(res.message);
+      },
+      error: (err) => {
+       if(err.error && err.error.message){
+        alert(err.error.message);
+       } else{
+        alert('Failed to mark attendance.');
+       }
       },
     });
   }
