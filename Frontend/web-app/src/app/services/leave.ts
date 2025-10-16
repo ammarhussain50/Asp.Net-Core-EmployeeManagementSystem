@@ -24,9 +24,6 @@ export class Leaves {
   return this.http.put(`${environment.apiUrl}/api/Leave/update-leave`, { id,status });
 }
 
-markAttendance() {
-  return this.http.post(`${environment.apiUrl}/api/Attendance/mark-present`,{});
 
-}
 
 }

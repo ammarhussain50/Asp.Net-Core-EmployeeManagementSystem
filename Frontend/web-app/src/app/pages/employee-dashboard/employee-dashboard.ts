@@ -3,6 +3,7 @@ import { ApplyLeave } from '../../types/ILeave';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Leaves } from '../../services/leave';
 import { LucideAngularModule, X , CheckCircle} from 'lucide-angular';
+import { AttendanceService } from '../../services/attendance';
 
 @Component({
   selector: 'app-employee-dashboard',
@@ -16,6 +17,8 @@ export class EmployeeDashboard {
 
   fb = inject(FormBuilder);
   leaveService = inject(Leaves);
+  AttendanceService = inject(AttendanceService)
+
 
   isModalOpen = false;
   leaveForm!: FormGroup;
@@ -54,7 +57,7 @@ export class EmployeeDashboard {
   }
 
    markAttendance() {
-    this.leaveService.markAttendance().subscribe({
+    this.AttendanceService.markAttendance().subscribe({
       next: (res:any) => {
         alert(res.message);
       },

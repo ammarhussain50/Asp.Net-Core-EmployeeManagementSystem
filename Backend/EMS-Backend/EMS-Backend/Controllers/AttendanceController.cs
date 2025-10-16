@@ -1,9 +1,11 @@
-﻿using EMS_Backend.Interface;
+﻿using EMS_Backend.Helpers;
+using EMS_Backend.Interface;
 using EMS_Backend.Mappers;
 using EMS_Backend.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 
 namespace EMS_Backend.Controllers
@@ -13,9 +15,9 @@ namespace EMS_Backend.Controllers
     public class AttendanceController : ControllerBase
     {
         private readonly IUserContextService userContext;
-        private readonly IRepository<Attendance> attendanceRepo;
+        private readonly IAttendenceRepository attendanceRepo;
 
-        public AttendanceController(IUserContextService userContext , IRepository<Attendance> AttendanceRepo)
+        public AttendanceController(IUserContextService userContext , IAttendenceRepository AttendanceRepo)
         {
             this.userContext = userContext;
             attendanceRepo = AttendanceRepo;
@@ -58,11 +60,22 @@ namespace EMS_Backend.Controllers
             await attendanceRepo.AddAsync(attendence);
             await attendanceRepo.SaveChangesAsync();
 
-
-
-
-
             return Ok(new { message = "Attendance marked as present successfully." });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetAttendanceRecords([FromQuery] SearchOptions options)
+        {
+
+            // If not admin, get employee ID from token/user context
+            if (!userContext.IsAdmin(User))
+            {
+                options.EmployeeId = await userContext.GetEmployeeIdFromClaimsAsync(User);
+            }
+
+            var result = await attendanceRepo.GetAttendanceHistoryAsync(options);
+            return Ok(result);
         }
     }
 }
