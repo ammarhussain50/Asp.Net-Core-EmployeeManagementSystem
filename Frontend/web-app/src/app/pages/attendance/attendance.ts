@@ -3,6 +3,7 @@ import { History, LoaderCircle, CalendarDays, LucideAngularModule, X } from 'luc
 import { AttendanceType, IAttendance } from '../../types/IAttendance';
 import { DatePipe } from '@angular/common';
 import { AttendanceService } from '../../services/attendance';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-attendance',
@@ -21,14 +22,18 @@ export class Attendance implements OnInit {
   pageSize: number = 5;
   totalCount: number = 0;
   Math = Math;
+  employeeId!: number;
 
   readonly AttendanceType = AttendanceType; // for template usage
  
   CalendarDays = CalendarDays;
 
  AttendanceService = inject(AttendanceService)
+ route = inject(ActivatedRoute)
 
   ngOnInit() {
+     this.employeeId = Number(this.route.snapshot.paramMap.get("id"));
+    console.log(this.employeeId);
     this.getAttendance();
   }
 
@@ -37,6 +42,7 @@ export class Attendance implements OnInit {
 
  this.filter.pageIndex = this.pageIndex;
     this.filter.pageSize = this.pageSize;
+    this.filter.employeeId = this.employeeId
     this.AttendanceService.getAttendanceHistory(this.filter).subscribe({
       next: (result) => {
         this.attendances = result.data;

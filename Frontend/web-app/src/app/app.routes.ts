@@ -41,5 +41,6 @@ export const routes: Routes = [
     {
         path : 'attendance',
         component : Attendance
-    }
+    },
+    { path: 'attendance/:id', component: Attendance },
 ];

@@ -2,11 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { LucideAngularModule, Pencil, Trash2, LoaderCircle, X } from 'lucide-angular'; // Loader icon
+import { LucideAngularModule, Pencil, Trash2, LoaderCircle, X,Eye} from 'lucide-angular'; // Loader icon
 
 import { IDepartment } from '../../types/IDepartment';
 import { IEmployee } from '../../types/IEmployee';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -15,8 +16,19 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
   styleUrl: './employee.css'
 })
 export class Employee implements OnInit {
+
+
+  viewAttendance(employeeId: number) {
+
+  this.router.navigateByUrl(`/attendance/${employeeId}`);
+ 
+}
+
+
+  router = inject(Router);
   Math = Math; // ✅ expose Math to your template
 readonly Pencil = Pencil;
+readonly Eye = Eye;
   readonly Trash2 = Trash2;
   readonly LoaderCircle = LoaderCircle;
   searchControl = new FormControl('');
