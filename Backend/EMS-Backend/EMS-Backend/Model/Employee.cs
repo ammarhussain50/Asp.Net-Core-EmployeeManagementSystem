@@ -21,6 +21,9 @@ namespace EMS_Backend.Entity
         // foreign key
         public string? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
+
+        public int? Salary { get; set; }
+
     }
 
  }
