@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|d:\\c-sharp folder\\employee-management-system\\backend\\ems-backend\\ems-backend\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|solutionrelative:ems-backend\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|d:\\c-sharp folder\\employee-management-system\\backend\\ems-backend\\ems-backend\\mappers\\profilemappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1034D311-ABA4-4522-9C6F-5CD71B5BF69D}|EMS-Backend\\EMS-Backend.csproj|solutionrelative:ems-backend\\mappers\\profilemappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -106,11 +110,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "EMS-Backend\\Controllers\\DashboardController.cs",
+              "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "EMS-Backend\\Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T18:57:58.19Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ProfileResponseDto.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\DTO\\ProfileResponseDto.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\DTO\\ProfileResponseDto.cs",
@@ -122,7 +139,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "20251020202940_Salary.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Migrations\\20251020202940_Salary.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Migrations\\20251020202940_Salary.cs",
@@ -134,7 +151,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "AttendanceController.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\AttendanceController.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Controllers\\AttendanceController.cs",
@@ -146,7 +163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "ILeaveRepository.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Interface\\ILeaveRepository.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Interface\\ILeaveRepository.cs",
@@ -158,7 +175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "UserContextService.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Services\\UserContextService.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Services\\UserContextService.cs",
@@ -170,20 +187,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ProfileMappers.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Mappers\\ProfileMappers.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Mappers\\ProfileMappers.cs",
               "ToolTip": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Mappers\\ProfileMappers.cs",
               "RelativeToolTip": "EMS-Backend\\Mappers\\ProfileMappers.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAAABwAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAABkAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-30T11:09:21.793Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ProfileController.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\ProfileController.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Controllers\\ProfileController.cs",
@@ -191,12 +208,11 @@
               "RelativeToolTip": "EMS-Backend\\Controllers\\ProfileController.cs",
               "ViewState": "AgIAAEMAAAAAAAAAAAAAAE4AAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T20:39:02.813Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-20T20:39:02.813Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Attendance.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Model\\Attendance.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Model\\Attendance.cs",
@@ -208,7 +224,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "EmployeeController.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\EmployeeController.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Controllers\\EmployeeController.cs",
@@ -220,7 +236,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Leave.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Model\\Leave.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Model\\Leave.cs",
@@ -232,7 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "LeaveController.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\LeaveController.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Controllers\\LeaveController.cs",
@@ -244,7 +260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Employee.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Model\\Employee.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Model\\Employee.cs",
@@ -256,7 +272,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "IAttendenceRepository.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Interface\\IAttendenceRepository.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Interface\\IAttendenceRepository.cs",
@@ -268,7 +284,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "AttendenceRepository.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Repository\\AttendenceRepository.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Repository\\AttendenceRepository.cs",
@@ -280,7 +296,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Data\\AppDbContext.cs",
@@ -292,7 +308,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "IDepartmentRepository.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Interface\\IDepartmentRepository.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Interface\\IDepartmentRepository.cs",
@@ -304,7 +320,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "LeaveRepository.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Repository\\LeaveRepository.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Repository\\LeaveRepository.cs",
@@ -316,7 +332,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "DepartmentController.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\DepartmentController.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Controllers\\DepartmentController.cs",
@@ -328,7 +344,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Controllers\\AuthController.cs",
@@ -340,7 +356,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "EmployeeRepository.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Repository\\EmployeeRepository.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Repository\\EmployeeRepository.cs",
@@ -352,7 +368,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "DepartmentRepository.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Repository\\DepartmentRepository.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Repository\\DepartmentRepository.cs",
@@ -364,7 +380,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "PagedResult.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Helpers\\PagedResult.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Helpers\\PagedResult.cs",
@@ -376,7 +392,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "AuthTokenDto.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\DTO\\AuthTokenDto.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\DTO\\AuthTokenDto.cs",
@@ -388,7 +404,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "ITokenService.cs",
               "DocumentMoniker": "D:\\C-sharp folder\\Employee-Management-System\\Backend\\EMS-Backend\\EMS-Backend\\Interface\\ITokenService.cs",
               "RelativeDocumentMoniker": "EMS-Backend\\Interface\\ITokenService.cs",

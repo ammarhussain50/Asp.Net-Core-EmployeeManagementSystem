@@ -17,9 +17,16 @@
     @if (authservice.isLoggedIn) {
 
        <!-- Show logged-in user email -->
-    <span routerLink="/Profile" class="text-xl font-medium text-gray-700">
-    {{ authservice.AuthDetail?.email }}
-    </span>
+        @if (authservice.isEmployee) {
+          <span routerLink="/Profile" class="text-xl font-medium text-gray-700">
+          {{ authservice.AuthDetail?.email }}
+          </span>
+        }
+        @else {
+           <span  class="text-xl font-medium text-gray-700">
+          {{ authservice.AuthDetail?.email }}
+          </span>
+        }
 
       <button
         (click)="logout()"
