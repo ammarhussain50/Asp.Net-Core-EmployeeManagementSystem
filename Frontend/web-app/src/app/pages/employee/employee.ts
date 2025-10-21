@@ -193,6 +193,7 @@ onPageChange(newPage: number) {
       joiningDate: ['', Validators.required],
       lastWorkingDate: [''], // optional
       dateOfBirth: ['', Validators.required],
+      salary: [null,Validators.required], // new salary field
     });
   
   }

@@ -12,4 +12,5 @@ export interface IProfileResponse {
   name: string;
   phone: string;
   profileImage: string;
+  salary : number
 }

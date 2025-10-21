@@ -40,7 +40,8 @@ export class Profile implements OnInit {
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)]],
       profileImage: [''],
       oldPassword: [''],
-      newPassword: ['']
+      newPassword: [''],
+       salary :[]
     });
   }
 
@@ -54,12 +55,14 @@ export class Profile implements OnInit {
 
   getProfile() {
     const userId = this.authService.AuthDetail?.id || '';
+    console.log(userId)
     this.httpService.getProfile(userId).subscribe({
       next: (res: IProfileResponse) => {
         this.profileForm.patchValue({
           name: res.name,
           phone: res.phone,
-          profileImage: res.profileImage || ''
+          profileImage: res.profileImage || '',
+          salary: res.salary || 0  // ✅ add this line
         });
       },
       error: () => {
@@ -75,21 +78,9 @@ export class Profile implements OnInit {
     }
 
     this.loading = true;
-    const formValue = this.profileForm.value;
+   
 
-    // ✅ Backend ke exact DTO structure ke according payload
-    const payload: IProfile = {
-      userId: formValue.userId,
-      name: formValue.name.trim(),
-      phone: formValue.phone.trim(),
-      profileImage: formValue.profileImage.trim(),
-      oldPassword: formValue.oldPassword.trim(),
-      newPassword: formValue.newPassword.trim()
-    };
-
-    console.log('Sending Payload:', payload);
-
-    this.httpService.updateProfile(payload).subscribe({
+    this.httpService.updateProfile(this.profileForm.value).subscribe({
       next: (res: any) => {
         this.loading = false;
         // Backend string return karta hai directly

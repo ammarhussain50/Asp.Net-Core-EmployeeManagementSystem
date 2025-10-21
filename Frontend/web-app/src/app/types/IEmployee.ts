@@ -5,11 +5,12 @@ export interface IEmployee {
     email: string;
     phone: string;
     jobTitle: string;
-    gender: number;
+    gender: Gender;
     departmentId: number;
     dateOfBirth: string; // Use string or Date depending on your usage
     joiningDate: string; // Use string or Date depending on your usage
     lastWorkingDate: string; // Use string or Date depending on your usage
+    salary: number;
 }
 
 export enum Gender{
