@@ -4,3 +4,12 @@ export interface IDashboard{
       employeeCount:number;
       departmentCount:number;
 }
+
+
+export interface IDepartmentDashboard{
+
+    name:string;
+    employeeCount:number;
+
+
+}

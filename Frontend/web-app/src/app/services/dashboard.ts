@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { IDashboard } from '../types/IDashboard';
+import { IDashboard, IDepartmentDashboard } from '../types/IDashboard';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,5 +12,9 @@ export class Dashboard {
 
    getDashboardData(){
       return this.http.get<IDashboard>(`${environment.apiUrl}/api/Dashboard`);
+    }
+
+    getDepartmentData(){
+      return this.http.get<IDepartmentDashboard[]>(`${environment.apiUrl}/api/Dashboard/department-data`);
     }
 }
