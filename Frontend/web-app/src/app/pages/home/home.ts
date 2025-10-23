@@ -1,14 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { LucideAngularModule, Users, Building2, Wallet } from 'lucide-angular';
+import { LucideAngularModule, Users, Building2, Wallet,LoaderCircle,X } from 'lucide-angular';
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { IDepartmentDashboard } from '../../types/IDashboard';
 import { Dashboard } from '../../services/dashboard';
+import { ILeave, LeaveStatus, LeaveType } from '../../types/Leave';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [LucideAngularModule, BaseChartDirective],
+  imports: [LucideAngularModule, BaseChartDirective,NgClass],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -64,16 +66,24 @@ export class Home implements OnInit {
   employeeCount!: number;
   departmentCount!: number;
 
+  // Leaves table
+  leaves: ILeave[] = [];
+  loading: boolean = true;
+
   // icons
   readonly Users = Users;
   readonly Building2 = Building2;
   readonly Wallet = Wallet;
+   readonly LoaderCircle = LoaderCircle;
+  readonly X = X;
+  readonly LeaveStatus = LeaveStatus;
 
   dashboardService = inject(Dashboard);
 
   ngOnInit(): void {
     this.getDashboardData();
     this.getDepartmentData();
+     this.getRecentLeaves();
   }
 
   getDashboardData() {
@@ -102,5 +112,28 @@ export class Home implements OnInit {
         alert('Failed to fetch department data');
       }
     });
+  }
+
+  getRecentLeaves() {
+    this.dashboardService.getRecentLeaves().subscribe({
+      next: (result) => {
+        
+        this.leaves = result;
+        this.loading = false;
+        
+      },
+      error: () => {
+        this.loading = false;
+        alert('Failed to fetch recent leaves');
+      }
+    });
+  }
+
+  getLeaveType(type: LeaveType): string {
+    return LeaveType[type] || 'Unknown';
+  }
+
+  getStatusText(status: LeaveStatus): string {
+    return LeaveStatus[status] || 'Unknown';
   }
 }

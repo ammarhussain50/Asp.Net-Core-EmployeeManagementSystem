@@ -11,5 +11,6 @@ namespace EMS_Backend.Interface
         Task DeleteAsync(int id);
         Task<int> SaveChangesAsync();
         Task<T?> FindAsync(Expression<Func<T, bool>> predicate);
+        Task<IEnumerable<T>> FindAsyncList(Expression<Func<T, bool>> predicate);
     }
 }

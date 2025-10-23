@@ -17,12 +17,14 @@ namespace EMS_Backend.Controllers
         private readonly IRepository<Employee> empRepo;
         private readonly IRepository<Department> depRepo;
         private readonly AppDbContext context;
+        private readonly ILeaveRepository leaveRepo;
 
-        public DashboardController(IRepository<Employee> empRepo, IRepository<Department> depRepo, AppDbContext context)
+        public DashboardController(IRepository<Employee> empRepo, IRepository<Department> depRepo, AppDbContext context, ILeaveRepository LeaveRepo)
         {
             this.empRepo = empRepo;
             this.depRepo = depRepo;
             this.context = context;
+            leaveRepo = LeaveRepo;
         }
 
         [HttpGet]
@@ -63,6 +65,32 @@ namespace EMS_Backend.Controllers
 
             return Ok(result);
         }
+
+
+        [HttpGet("emp-leave-today")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetEmployeeOnLeave()
+        {
+            var onLeaveList = await leaveRepo.FindAsyncList(x =>
+                DateTime.Compare(x.LeaveDate.Date, DateTime.Now.Date) == 0);
+
+            var employeeIds = onLeaveList.Select(x => x.EmployeeId);
+
+            var employeeList = await empRepo.FindAsyncList(x => employeeIds.Contains(x.Id));
+
+            var employeeOnLeave = onLeaveList.Select(x => new LeaveDto()
+            {
+                EmployeeId = x.Id,
+                Reason = x.Reason,
+                Type = x.Type,
+                Status = x.Status,
+                EmployeeName = employeeList.FirstOrDefault(y => y.Id == x.EmployeeId)?.Name!
+            });
+
+            return Ok(employeeOnLeave);
+        }
+
+
 
     }
 }

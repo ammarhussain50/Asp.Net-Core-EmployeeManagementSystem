@@ -7,11 +7,12 @@ namespace EMS_Backend.Mappers
     {
         public static Leave ToLeave(this LeaveDto dto,int empid)
         {
+            var date = TimeZoneInfo.ConvertTimeFromUtc(dto.LeaveDate.Value, TimeZoneInfo.Local);
             return new Leave
             {
                 Type = dto.Type ?? (int)LeaveType.Sick, // Default value if null
                 Reason = dto.Reason!,
-                LeaveDate = dto.LeaveDate.Value,
+                LeaveDate = date,
                 Status = (int)LeaveStatus.Pending,
                 EmployeeId = empid
             };
